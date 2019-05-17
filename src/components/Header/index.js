@@ -1,11 +1,12 @@
 import React        from "react";
 import PropTypes    from 'prop-types';
 import './style.less'
+import { Avatar, Icon } from "antd";
 
 
 
-export default class Login extends React.Component {
-    _pageName = "login";
+export default class MyHeader extends React.Component {
+    _componentName = "header";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -15,7 +16,7 @@ export default class Login extends React.Component {
         super(props);
 
         this.state = {
-            name: 'Iolanne',
+            showLogout: false,
         };
     }
 
@@ -29,13 +30,6 @@ export default class Login extends React.Component {
     // Event Handlers
     // -------------------------------------------------------------------------//
 
-/*     handleClick = () => {
-        this.setState({
-            name: this.state.name === 'Iolanne' ? 'Thiago' : 'Iolanne'
-        }, () => {
-            console.log(this.state.name)
-        })
-    } */
 
     // -------------------------------------------------------------------------//
     // Other functions
@@ -46,21 +40,45 @@ export default class Login extends React.Component {
     // Rendering
     // -------------------------------------------------------------------------//
 
+    renderLogout(){
+        return(
+            <div className   = {this._componentName + '-logout'}>
+                SAIR
+                
+                <Icon
+                    type        = "logout"
+                    className   = {this._componentName + '-icon'}
+                />
+            </div>
+        )
+    }
+
     render() {
         return (
-            <div className	= {this._pageName} onClick = { () => { this.handleClick() } }>
-				{this.state.name ? this.state.name : 'Sem nome' }
+            <div className   = {this._componentName}>
+                <div className   = {this._componentName + '-name'}>
+                    {this.props.text}
+                </div>
+                <div
+                    className   = {this._componentName + '-avatar'}
+                    onClick     = {() => {this.setState({showLogout: !this.state.showLogout})}}
+                >
+                    <Avatar size="large" icon="user" />
+                </div>
+                {
+                    this.state.showLogout && this.renderLogout()                    
+                }
             </div>
         );
     }
 }
 
 // Component props and default prop values
-Login.propTypes = {
+MyHeader.propTypes = {
     text         : PropTypes.string
 
 };
 
-Login.defaultProps = {
-    text         : "Sample component"
+MyHeader.defaultProps = {
+    text         : "Thiago Felix"
 };
