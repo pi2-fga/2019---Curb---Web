@@ -1,15 +1,12 @@
 import React        from "react";
 import PropTypes    from 'prop-types';
-import './style.less'
-import HighlightCard from "../../components/HighlightCard";
-import { Col } from "antd";
-import TableCurb from "../../components/TableCurb";
+import './style.less';
+import {Table}  from "antd";
 
 
 
-
-export default class GeneralStatistics extends React.Component {
-    _pageName = "general-statistics";
+export default class TableCurb extends React.Component {
+    _componentName = "table-curb";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -19,7 +16,7 @@ export default class GeneralStatistics extends React.Component {
         super(props);
 
         this.state = {
-            name: 'Iolanne',
+            showLogout: false,
         };
     }
 
@@ -33,13 +30,6 @@ export default class GeneralStatistics extends React.Component {
     // Event Handlers
     // -------------------------------------------------------------------------//
 
-/*     handleClick = () => {
-        this.setState({
-            name: this.state.name === 'Iolanne' ? 'Thiago' : 'Iolanne'
-        }, () => {
-            console.log(this.state.name)
-        })
-    } */
 
     // -------------------------------------------------------------------------//
     // Other functions
@@ -51,27 +41,55 @@ export default class GeneralStatistics extends React.Component {
     // -------------------------------------------------------------------------//
 
     render() {
+        const dataSource = [
+            {
+              key: '1',
+              name: 'Mike',
+              age: 32,
+              address: '10 Downing Street',
+            },
+            {
+              key: '2',
+              name: 'John',
+              age: 42,
+              address: '10 Downing Street',
+            },
+          ];
+          
+          const columns = [
+            {
+              title: 'Name',
+              dataIndex: 'name',
+              key: 'name',
+            },
+            {
+              title: 'Age',
+              dataIndex: 'age',
+              key: 'age',
+            },
+            {
+              title: 'Address',
+              dataIndex: 'address',
+              key: 'address',
+            },
+          ];
+
         return (
-            <div className	= {this._pageName}>
-                <div className	= {this._pageName + '-highlight-holder'}>
-                    <HighlightCard />
-                    <HighlightCard />
-                    <HighlightCard />
-                </div>        
-                <div className = {this._pageName + '-table-curb'}>
-                    <TableCurb />
-                </div>
+            <div className   = {this._componentName}>
+                 
+                <Table dataSource={dataSource} columns={columns} />                         
+            
             </div>
         );
     }
 }
 
 // Component props and default prop values
-GeneralStatistics.propTypes = {
+TableCurb.propTypes = {
     text         : PropTypes.string
 
 };
 
-GeneralStatistics.defaultProps = {
-    text         : "Sample component"
+TableCurb.defaultProps = {
+    text         : "Table of all CURBs"
 };
