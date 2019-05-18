@@ -4,11 +4,11 @@ import {
     Route,
     Switch
 }                   from "react-router-dom";
-import Login        from "./pages/login";
 import {
-    Layout
+    Layout, Col, Row
 }                   from "antd";
 import MyHeader     from "./components/Header";
+import GeneralStatistics from "./pages/GeneralStatistics";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -21,7 +21,7 @@ function AppRouter() {
             <Content>
                 <Router>
                     <Switch>
-                        <Route component={Login} />
+                        <Route component={GeneralStatistics} />
                     </Switch>
                 </Router>
             </Content>

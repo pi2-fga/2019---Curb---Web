@@ -1,11 +1,12 @@
 import React        from "react";
 import PropTypes    from 'prop-types';
 import './style.less'
+import { Avatar, Icon, Col } from "antd";
 
 
 
-export default class Login extends React.Component {
-    _pageName = "login";
+export default class HighlightCard extends React.Component {
+    _componentName = "highlight-card";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -15,7 +16,7 @@ export default class Login extends React.Component {
         super(props);
 
         this.state = {
-            name: 'Iolanne',
+            showLogout: false,
         };
     }
 
@@ -29,13 +30,6 @@ export default class Login extends React.Component {
     // Event Handlers
     // -------------------------------------------------------------------------//
 
-/*     handleClick = () => {
-        this.setState({
-            name: this.state.name === 'Iolanne' ? 'Thiago' : 'Iolanne'
-        }, () => {
-            console.log(this.state.name)
-        })
-    } */
 
     // -------------------------------------------------------------------------//
     // Other functions
@@ -48,19 +42,37 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div className	= {this._pageName} onClick = { () => { this.handleClick() } }>
-				{this.state.name ? this.state.name : 'Sem nome' }
-            </div>
+            <Col className   = {this._componentName}>
+                <div className   = {this._componentName + '-icon-holder'}>
+                    <div className   = {this._componentName + '-icon'}>
+
+                    </div>
+
+                </div>
+                <div className   = {this._componentName + '-text-holder'}>
+                    <div className   = {this._componentName + '-title'}>
+                        278km
+                    </div>
+                    <div className   = {this._componentName + '-subtitle'}>
+                        Percorridos
+                    </div>
+                </div>
+                <div className   = {this._componentName + '-percent-holder'}>
+                    <div className   = {this._componentName + '-percent'}>
+                        7,89%
+                    </div>                    
+                </div>
+            </Col>
         );
     }
 }
 
 // Component props and default prop values
-Login.propTypes = {
+HighlightCard.propTypes = {
     text         : PropTypes.string
 
 };
 
-Login.defaultProps = {
-    text         : "Sample component"
+HighlightCard.defaultProps = {
+    text         : "Thiago Felix"
 };
