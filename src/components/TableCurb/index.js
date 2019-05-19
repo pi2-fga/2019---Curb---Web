@@ -44,41 +44,62 @@ export default class TableCurb extends React.Component {
         const dataSource = [
             {
               key: '1',
-              name: 'Mike',
-              age: 32,
-              address: '10 Downing Street',
+              name: 'CURB I',
+              status: 'Em Operação',
+              ink: '3',
+              battery: '38%',
+              distance: '7 km',
+              edit: '',
             },
             {
               key: '2',
-              name: 'John',
-              age: 42,
-              address: '10 Downing Street',
+              name: 'CURB II',
+              status: 'Em Operação',
+              ink: '5',
+              battery: '48%',
+              distance: '8 km',
+              edit: '',
             },
           ];
           
           const columns = [
             {
-              title: 'Name',
+              title: 'Nome',
               dataIndex: 'name',
               key: 'name',
             },
             {
-              title: 'Age',
-              dataIndex: 'age',
-              key: 'age',
+              title: 'Status',
+              dataIndex: 'status',
+              key: 'status',
             },
             {
-              title: 'Address',
-              dataIndex: 'address',
-              key: 'address',
+              title: ' Tinta(L)',
+              dataIndex: 'ink',
+              key: 'ink',
+            },
+            {
+              title: ' Bateria(%)',
+              dataIndex: 'battery',
+              key: 'battery',
+            },
+            {
+              title: ' Distância(Km)',
+              dataIndex: 'distance',
+              key: 'distance',
+            },
+            {
+              title: 'Alterar',
+              dataIndex: 'edit',
+              key: 'edit',
             },
           ];
 
         return (
             <div className   = {this._componentName}>
-                 
-                <Table dataSource={dataSource} columns={columns} />                         
-            
+                <div className = {this._componentName + '-table-holder'} >
+                    <Table dataSource={dataSource} columns={columns} size={"middle"} />                         
+                </div>
             </div>
         );
     }
