@@ -2,6 +2,7 @@ import React        from "react";
 import PropTypes    from 'prop-types';
 import './style.less';
 import {Table}  from "antd";
+import { MOCK } from "../../settings/mock";
 
 
 
@@ -16,10 +17,21 @@ export default class TableCurb extends React.Component {
         super(props);
 
         this.state = {
-            showLogout: false,
+            showLogout  : false,
+            curbs       : MOCK.curbs,
+            innerWidth  : 1,
         };
+
+        window.addEventListener("resize", this.handleResize);
     }
 
+    componentDidMount() {
+        this.handleResize()
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.handleResize);
+    }
 
     // -------------------------------------------------------------------------//
     // Requests
@@ -30,6 +42,9 @@ export default class TableCurb extends React.Component {
     // Event Handlers
     // -------------------------------------------------------------------------//
 
+    handleResize = () => {
+        this.setState( {innerWidth: window.innerWidth} )
+    }
 
     // -------------------------------------------------------------------------//
     // Other functions
@@ -40,44 +55,70 @@ export default class TableCurb extends React.Component {
     // Rendering
     // -------------------------------------------------------------------------//
 
+    renderActions = (text, record, index) => {
+        return (
+            <div>
+                Olá!
+            </div>
+        )
+    }
+
+    renderBool = (text, record, index) => {
+        return (
+            <div>
+                { (text === true ? 'Em operação' : 'Desligado')}
+            </div>
+        )
+    }
+
+    renderMeasures(text, record, index, scale){
+        return (
+            <div>
+                { text + scale }
+            </div>
+        )
+    }
+
     render() {
-        const dataSource = [
-            {
-              key: '1',
-              name: 'Mike',
-              age: 32,
-              address: '10 Downing Street',
-            },
-            {
-              key: '2',
-              name: 'John',
-              age: 42,
-              address: '10 Downing Street',
-            },
-          ];
-          
           const columns = [
             {
-              title: 'Name',
-              dataIndex: 'name',
-              key: 'name',
+              title     : 'Código',
+              dataIndex : 'cod',
             },
             {
-              title: 'Age',
-              dataIndex: 'age',
-              key: 'age',
+              title     : 'Status',
+              dataIndex : 'operating',
+              render    : this.renderBool
             },
             {
-              title: 'Address',
-              dataIndex: 'address',
-              key: 'address',
+              title     : 'Tinta',
+              dataIndex : 'paint',
+              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'L') }
+            },
+            {
+              title     : 'Distância Percorrida',
+              dataIndex : 'distance',
+              align     : 'center',
+              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'Km') }
+            },
+            {
+              title     : 'Ações',
+              dataIndex : 'id',
+              render    : this.renderActions
             },
           ];
 
         return (
             <div className   = {this._componentName}>
                  
-                <Table dataSource={dataSource} columns={columns} />                         
+                <Table
+                    className   = {this._componentName + '-table'}
+                    dataSource  = {this.state.curbs}
+                    columns     = {columns}
+                    size        = {'small'}
+                    pagination  = { false }
+                    scroll      = {{ x: (this.state.innerWidth <= 600 ? 900 : 0) }}
+                />
             
             </div>
         );

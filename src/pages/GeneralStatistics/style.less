@@ -2,7 +2,7 @@
 @pageName: ~"general-statistics";
 
 .@{pageName}{
-  width           : 80%;
+  width           : 100%;
   height          : calc(100vh - 45px);
   display         : block;
   justify-content : center;
@@ -27,13 +27,14 @@
 
 @media screen and (max-width: 768px) {
   .@{pageName}{
-    width           : 84%;
+    width           : 100%;
     padding-left    : 8%;
     padding-right   : 8%;
 
     .@{pageName}-highlight-holder{
       width           : 100%;
-      height          : 100px;
+      min-height      : 100px;
+      height          : fit-content;
       display         : block;
       flex-direction  : row;
       align-items     : center;
