@@ -8,6 +8,7 @@ export const MOCK = {
 			operating		: false,
 			paint 			: 42.3,
 			distance		: 12,
+			battery			: 20,
 			activedUser		: {
 				id		: 1,
 				name	: 'Thiago Felix',
@@ -46,6 +47,7 @@ export const MOCK = {
 			operating		: true,
 			paint 			: 25.7,
 			distance		: 4.9,
+			battery			: 40,
 			activedUser		: {
 				id		: 1,
 				name	: 'Thiago Felix',
@@ -84,6 +86,7 @@ export const MOCK = {
 			operating		: false,
 			paint 			: 432.4,
 			distance		: 178,
+			battery			: 100,
 			activedUser		: {
 				id		: 2,
 				name	: 'Victor Hugo',
@@ -122,6 +125,7 @@ export const MOCK = {
 			operating		: true,
 			paint 			: 7.8,
 			distance		: 3.2,
+			battery			: 50,
 			activedUser		: {
 				id		: 2,
 				name	: 'Fernando Gomes',
