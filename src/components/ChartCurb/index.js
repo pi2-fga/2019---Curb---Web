@@ -1,15 +1,12 @@
 import React        from "react";
 import PropTypes    from 'prop-types';
-import './style.less'
-import HighlightCard from "../../components/HighlightCard";
-import TableCurb from "../../components/TableCurb";
-import ChartCurb from "../../components/ChartCurb";
+import './style.less';
+import {Chart} from 'react-google-charts';
 
 
 
-
-export default class GeneralStatistics extends React.Component {
-    _pageName = "general-statistics";
+export default class ChartCurb extends React.Component {
+    _componentName = "chart-curb";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -19,7 +16,7 @@ export default class GeneralStatistics extends React.Component {
         super(props);
 
         this.state = {
-            name: 'Iolane',
+            showLogout: false,
         };
     }
 
@@ -33,13 +30,6 @@ export default class GeneralStatistics extends React.Component {
     // Event Handlers
     // -------------------------------------------------------------------------//
 
-/*     handleClick = () => {
-        this.setState({
-            name: this.state.name === 'Iolanne' ? 'Thiago' : 'Iolanne'
-        }, () => {
-            console.log(this.state.name)
-        })
-    } */
 
     // -------------------------------------------------------------------------//
     // Other functions
@@ -52,19 +42,28 @@ export default class GeneralStatistics extends React.Component {
 
     render() {
         return (
-            <div className	= {this._pageName}>
-                <div className	= {this._pageName + '-highlight-holder'}>
-                    <HighlightCard />
-                    <HighlightCard />
-                    <HighlightCard />
-                </div>   
-                <div>     
-                    <div className = {this._pageName + '-table-curb'}>
-                        <TableCurb />
-                    </div>
-                    <div className = {this._pageName + '-chart-curb'}>
-                        <ChartCurb />
-                </div>
+            <div className   = {this._componentName}>
+                <div className = {this._componentName + '-chart'}>
+                    <Chart
+                        chartType="Bar"
+                        loader={<div>Loading Chart</div>}
+                        data={[
+                            ['CURB', 'Tinta (L)', 'Bateria(%)', 'Distância(Km)'],
+                            ['I', 7, 40, 20],
+                            ['II', 11, 46, 25],
+                            ['III', 66, 100, 30],
+                            ['IV', 10, 54, 35],
+                        ]}
+                        options={{
+                            // Material design options
+                            chart: {
+                            title: 'Estatísticas gerais',
+                            subtitle: 'gastos por CURB',
+                            },
+                        }}
+                        // For tests
+                        rootProps={{ 'data-testid': '2' }}
+                    />
                 </div>
             </div>
         );
@@ -72,11 +71,11 @@ export default class GeneralStatistics extends React.Component {
 }
 
 // Component props and default prop values
-GeneralStatistics.propTypes = {
+ChartCurb.propTypes = {
     text         : PropTypes.string
 
 };
 
-GeneralStatistics.defaultProps = {
-    text         : "Sample component"
+ChartCurb.defaultProps = {
+    text         : "Chart of general CURBs"
 };
