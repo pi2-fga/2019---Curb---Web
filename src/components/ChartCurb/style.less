@@ -1,7 +1,7 @@
 @componentName: ~"chart-curb";
 
 .@{componentName}{
-    width           : 400px;
+    width           : calc(50%);
     height          : 400px;
     display         : inline-flex;
     float           : right;
@@ -13,6 +13,12 @@
     }
 }
 
+@media screen and (max-width: 1010px) {
+    .@{componentName}{
+        width           : 100%;
+        margin-top      : 20px;
+    }
+}
 
 
 @media screen and (max-width: 768px) {

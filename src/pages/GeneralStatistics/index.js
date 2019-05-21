@@ -58,13 +58,9 @@ export default class GeneralStatistics extends React.Component {
                     <HighlightCard />
                     <HighlightCard />
                 </div>   
-                <div>     
-                    <div className = {this._pageName + '-table-curb'}>
-                        <TableCurb />
-                    </div>
-                    <div className = {this._pageName + '-chart-curb'}>
-                        <ChartCurb />
-                </div>
+                <div className	= {this._pageName + '-holder'}>     
+                    <TableCurb />
+                    <ChartCurb />
                 </div>
             </div>
         );

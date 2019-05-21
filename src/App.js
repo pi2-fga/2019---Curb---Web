@@ -15,7 +15,7 @@ const { Header, Footer, Sider, Content } = Layout;
 
 function AppRouter() {
     return (
-        <Layout className = 'App'>          
+        <Layout className = 'App' style={{height: '100vh', minHeight: 'fit-content'}}>          
             <Content>
                 <MyHeader />
                 <Router>
