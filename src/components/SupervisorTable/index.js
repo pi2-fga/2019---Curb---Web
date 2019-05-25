@@ -6,8 +6,8 @@ import { MOCK } from "../../settings/mock";
 
 
 
-export default class TableCurb extends React.Component {
-    _componentName = "table-curb";
+export default class SupervisorTable extends React.Component {
+    _componentName = "supervisor-table";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -132,11 +132,11 @@ export default class TableCurb extends React.Component {
 }
 
 // Component props and default prop values
-TableCurb.propTypes = {
+SupervisorTable.propTypes = {
     text         : PropTypes.string
 
 };
 
-TableCurb.defaultProps = {
+SupervisorTable.defaultProps = {
     text         : "Table of all CURBs"
 };

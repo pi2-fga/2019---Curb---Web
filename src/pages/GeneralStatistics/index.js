@@ -4,6 +4,8 @@ import './style.less'
 import HighlightCard from "../../components/HighlightCard";
 import TableCurb from "../../components/TableCurb";
 import ChartCurb from "../../components/ChartCurb";
+import SupervisorTable from "../../components/SupervisorTable";
+import { Icon } from "antd";
 
 
 
@@ -19,7 +21,7 @@ export default class GeneralStatistics extends React.Component {
         super(props);
 
         this.state = {
-            name: 'Iolane',
+            showAddItem: false,
         };
     }
 
@@ -41,6 +43,9 @@ export default class GeneralStatistics extends React.Component {
         })
     } */
 
+    handleShowAddItem = () => {
+        this.setState({showAddItem: !this.state.showAddItem})
+    }
     // -------------------------------------------------------------------------//
     // Other functions
     // -------------------------------------------------------------------------//
@@ -49,6 +54,25 @@ export default class GeneralStatistics extends React.Component {
     // -------------------------------------------------------------------------//
     // Rendering
     // -------------------------------------------------------------------------//
+
+    renderAddItemModal() {
+        return(
+            <div className	= {this._pageName + '-add-item'}>
+                <div
+                    className	= {this._pageName + '-add-item-wrapper'}
+                    onClick     = { this.handleShowAddItem }
+                />
+                <div className	= {this._pageName + '-add-item-modal'}>
+                    <div className	= {this._pageName + '-add-item-button'}>
+                        Adicionar curb
+                    </div>
+                    <div className	= {this._pageName + '-add-item-button'}>
+                        Adicionar supervisor
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     render() {
         return (
@@ -60,8 +84,22 @@ export default class GeneralStatistics extends React.Component {
                 </div>   
                 <div className	= {this._pageName + '-holder'}>     
                     <TableCurb />
-                    <ChartCurb />
+                    <div className = {this._pageName + '-rows'}>
+                        <ChartCurb />
+                        <SupervisorTable />
+                    </div>
                 </div>
+                { this.state.showAddItem ?
+                this.renderAddItemModal () :
+                <div
+                    className	= {this._pageName + '-fb'}
+                    onClick = { this.handleShowAddItem }
+                >
+                    <Icon
+                        type    = "plus"
+                    />
+                </div>
+                }
             </div>
         );
     }
