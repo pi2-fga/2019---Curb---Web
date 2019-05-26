@@ -6,6 +6,7 @@ import TableCurb from "../../components/TableCurb";
 import ChartCurb from "../../components/ChartCurb";
 import SupervisorTable from "../../components/SupervisorTable";
 import { Icon } from "antd";
+import WrappedCurbForm from "../../components/CurbForm";
 
 
 
@@ -22,6 +23,7 @@ export default class GeneralStatistics extends React.Component {
 
         this.state = {
             showAddItem: false,
+            showAddCurb: false,
         };
     }
 
@@ -46,6 +48,13 @@ export default class GeneralStatistics extends React.Component {
     handleShowAddItem = () => {
         this.setState({showAddItem: !this.state.showAddItem})
     }
+
+    handleShowAddCurb = () => {
+        this.setState({
+            showAddCurb: !this.state.showAddCurb,
+            showAddItem: !this.state.showAddItem,
+        })
+    }
     // -------------------------------------------------------------------------//
     // Other functions
     // -------------------------------------------------------------------------//
@@ -55,6 +64,18 @@ export default class GeneralStatistics extends React.Component {
     // Rendering
     // -------------------------------------------------------------------------//
 
+    renderAddCurb() {
+        return(
+            <div className	= {this._pageName + '-add-item'}>
+                <div
+                    className	= {this._pageName + '-add-item-wrapper'}
+                    onClick     = {this.handleShowAddCurb}
+                />
+                <WrappedCurbForm />
+            </div>
+        )
+    }
+
     renderAddItemModal() {
         return(
             <div className	= {this._pageName + '-add-item'}>
@@ -63,7 +84,10 @@ export default class GeneralStatistics extends React.Component {
                     onClick     = { this.handleShowAddItem }
                 />
                 <div className	= {this._pageName + '-add-item-modal'}>
-                    <div className	= {this._pageName + '-add-item-button'}>
+                    <div
+                        className	= {this._pageName + '-add-item-button'}
+                        onClick     = { this.handleShowAddCurb }
+                    >
                         Adicionar curb
                     </div>
                     <div className	= {this._pageName + '-add-item-button'}>
@@ -91,6 +115,8 @@ export default class GeneralStatistics extends React.Component {
                 </div>
                 { this.state.showAddItem ?
                 this.renderAddItemModal () :
+                this.state.showAddCurb ?
+                this.renderAddCurb() :
                 <div
                     className	= {this._pageName + '-fb'}
                     onClick = { this.handleShowAddItem }

@@ -5,13 +5,13 @@ import {
     Switch
 }                   from "react-router-dom";
 import {
-    Layout, Col, Row
+    Layout,
 }                   from "antd";
 import 'antd/dist/antd.less';
 import MyHeader     from "./components/Header";
 import GeneralStatistics from "./pages/GeneralStatistics";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
 function AppRouter() {
     return (
