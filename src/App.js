@@ -10,6 +10,7 @@ import {
 import 'antd/dist/antd.less';
 import MyHeader     from "./components/Header";
 import GeneralStatistics from "./pages/GeneralStatistics";
+import UserRegister from "./pages/UserRegister";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -20,7 +21,7 @@ function AppRouter() {
                 <MyHeader />
                 <Router>
                     <Switch>
-                        <Route component={GeneralStatistics} />
+                        <Route component={UserRegister} />
                     </Switch>
                 </Router>
             </Content>
