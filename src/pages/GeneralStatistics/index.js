@@ -126,9 +126,30 @@ export default class GeneralStatistics extends React.Component {
         return (
             <div className	= {this._pageName}>
                 <div className	= {this._pageName + '-highlight-holder'}>
-                    <HighlightCard />
-                    <HighlightCard />
-                    <HighlightCard />
+                    <HighlightCard
+                        unitOfMeasure   = { 'km' }
+                        amount          = { 278 }
+                        subtitle        = { 'Percorridos' }
+                        isPositive      = { true }
+                        percentage      = { 7.34 }
+                    />
+                    <HighlightCard 
+                        unitOfMeasure   = { 'L' }
+                        amount          = { 145 }
+                        subtitle        = { 'Tinta utilizada' }
+                        isPositive      = { false }
+                        percentage      = { 3.2 }
+                    />
+                    <HighlightCard 
+                        unitOfMeasure   = { '' }
+                        amount          = { 87 }
+                        subtitle        = { 'Viagens realizadas' }
+                    />
+                    <HighlightCard 
+                        unitOfMeasure   = { '' }
+                        amount          = { 12 }
+                        subtitle        = { 'Curbs cadastrados' }
+                    />
                 </div>   
                 <div className	= {this._pageName + '-holder'}>     
                     <TableCurb />
