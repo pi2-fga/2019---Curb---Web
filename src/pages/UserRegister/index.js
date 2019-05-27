@@ -1,7 +1,7 @@
 import React        from "react";
 import PropTypes    from 'prop-types';
-import './style.less'
-import UserFormRegister from "../../components/UserFormRegister";
+import './style.less';
+import WrappedAdministratorForm from "../../components/AdministratorForm";
 
 
 export default class UserRegister extends React.Component {
@@ -16,6 +16,7 @@ export default class UserRegister extends React.Component {
 
         this.state = {
             showAddItem: false,
+            showAddAdministrator: false,
         };
     }
 
@@ -38,7 +39,14 @@ export default class UserRegister extends React.Component {
     } */
 
     handleShowAddItem = () => {
-       
+        this.setState({showAddItem: !this.state.showAddItem})
+    }
+
+    handleShowAddAdministrator = () => {
+        this.setState({
+            showAddAdministrator: !this.state.showAddAdministrator,
+            showAddItem: !this.state.showAddItem,
+        })
     }
     // -------------------------------------------------------------------------//
     // Other functions
@@ -49,12 +57,18 @@ export default class UserRegister extends React.Component {
     // Rendering
     // -------------------------------------------------------------------------//
 
+
+    
+
     render() {
         return (
             <div className	= {this._pageName}>
-                <div className	= {this._pageName + '-register-holder'}>
-                    <UserFormRegister />
-                </div>        
+                 <div
+                    className	= {this._pageName + '-add-item-wrapper'}
+                    onClick     = {this.handleShowAddAdministrator}
+                />
+                    <WrappedAdministratorForm />
+                      
             </div>
         );
     }
