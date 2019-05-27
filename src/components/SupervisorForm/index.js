@@ -116,6 +116,28 @@ class SupervisorForm extends React.Component {
                     }
                     </Form.Item>
                     <Form.Item
+                      label         = { 'Email' }
+                    >
+                    {
+                        getFieldDecorator('email', {
+                            rules: [
+                                {
+                                  type      : 'email',
+                                  message   : 'O email informado é inválido!',
+                                },
+                                {
+                                    required: true,
+                                    message : 'Campo obrigatório!'
+                                }
+                            ],
+                        })(
+                            <Input
+                                onChange = { this.handleCPFChange }
+                            />
+                        )
+                    }
+                    </Form.Item>
+                    <Form.Item
                       label         = { 'CPF' }
                     >
                     {
