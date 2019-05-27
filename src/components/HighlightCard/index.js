@@ -53,6 +53,7 @@ export default class HighlightCard extends React.Component {
         let backgroundColor = this.props.percentage ? this.props.isPositive ?
                               'rgba(73, 129, 253, 0.4)' : 'rgba(241, 7, 94, 0.4)' : 'rgba(86, 217, 254, 0.4)';
         let color = this.props.percentage ? this.props.isPositive ? '#4981FD' : '#F1075E' : '#11C8FC';;
+        
         return (
             <Col className   = {this._componentName}>
                 <div className   = {this._componentName + '-icon-holder'}>

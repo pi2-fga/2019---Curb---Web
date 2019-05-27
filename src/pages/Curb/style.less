@@ -1,5 +1,5 @@
 
-@pageName: ~"general-statistics";
+@pageName: ~"curb-page";
 
 .ant-table-wrapper {
   height: 70vh;
@@ -90,7 +90,7 @@
     flex-direction  : row;
     justify-content : space-between;
 
-    .@{pageName}-rows {
+    .@{pageName}-row {
       width       : 50%;
       position    : relative;
       max-height  : 70vh;
@@ -100,17 +100,13 @@
 }
 
 @media screen and (max-width: 1010px) {
-  .ant-table-wrapper {
-    height: fit-content;
-  }
-  
-.@{pageName}{
-  .@{pageName}-holder{
-    .@{pageName}-rows {
-      width: 100%;
+  .@{pageName}{
+    .@{pageName}-holder{
+      .@{pageName}-row {
+        width       : 100%;
+      }
     }
   }
-}
 }
 
 @media screen and (max-width: 768px) {
