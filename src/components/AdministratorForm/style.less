@@ -1,45 +1,44 @@
 @componentName: ~"administrator-form";
 
-ant-form-item-required{
-    color: white !important;
+  .ant-form-item-required{
+    color: black !important;
+  }
 
-    @{componentName} {
-        width           : 470px;
-        height          : 280px;
+  @{componentName} {
+      width           : 100%;
+      background-color: #4981FD;
+      position        : fixed;
+      bottom          : 20px;
+      right           : 20px;
+      text-align      : center;
+      padding         : 10px 50px;
+      border-radius   : 8px;
+      
+      .@{componentName}-title {
+        font-size: 25px;
+        font-weight : bolder;
+      }
+  }
+      
+      
+      
+  @media screen and (max-width: 534px) {
+      
+    .@{componentName} {
+        width           : 90%;
+        height          : 350px;
         background-color: #4981FD;
         position        : fixed;
         bottom          : 20px;
         right           : 20px;
         text-align      : center;
-        color           : white;
-        padding         : 10px 50px;
+        padding         : 40px 50px;
         border-radius   : 8px;
       
-         .@{componentName}-title {
+        .@{componentName}-title {
           font-size: 22px;
-          font: bold;
+          font-weight: bolder;
+          color: black;
         }
-      }
-      
-      
-      
-       @media screen and (max-width: 534px) {
-      
-         .@{componentName} {
-          width           : 90%;
-          height          : 350px;
-          background-color: #4981FD;
-          position        : fixed;
-          bottom          : 20px;
-          right           : 20px;
-          text-align      : center;
-          color           : white;
-          padding         : 40px 50px;
-          border-radius   : 8px;
-      
-           .@{componentName}-title {
-            font-size: 22px;
-          }
-        }
-    }
+   }
 }

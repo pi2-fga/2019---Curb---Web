@@ -111,11 +111,11 @@ class AdministratorForm extends React.Component {
         const { getFieldDecorator } = this.props.form;
 
         return (
-            <div className   = {this._componentName}>
+            <div className   = {this._componentName + '-administrator-form'}>
                 <div>
                 <div className   = { this._componentName }>
                 <div className   = { this._componentName + '-title' }>
-                    Cadastar Administrador
+                    Cadastrar Administrador
                 </div>                
                     <Form
                         onSubmit    = { this.handleSubmit }

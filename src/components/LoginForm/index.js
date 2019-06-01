@@ -102,7 +102,7 @@ class LoginForm extends React.Component {
                             Entrar
                         </Button>
                     </div>
-                    Ou <a href="">Cadastrar agora</a>
+                    Ou <a href="/cadastrar">Cadastrar agora</a>
                     </Form.Item>
                 </Form>
             </div>     

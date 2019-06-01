@@ -1,23 +1,25 @@
 @componentName: ~"login-form";
 
-ant-form-item-required{
-    color: white !important;
+.ant-form-horizontal{
+    width: 250px;
+  }
 
-    @{componentName}{
-        max-width: 300px;
-
-        .@{componentName}-login-form-remember{
-            display: inline-flex;
-
-        }
-      
-         .@{componentName}-login-form-forgot {
-            float: right;
-        }
-
-        .@{componentName}-login-form-button{
-            width: 100%
-      }
-      
+.ant-row.ant-form-item{
+    width: 100%;
+}
+@{componentName}{
+    max-width: 350px;
+    
+    .@{componentName}-login-form-remember{
+        display: inline-flex;
     }
+      
+    .@{componentName}-login-form-forgot {
+        float: right;
+    }
+
+    .@{componentName}-login-form-button{
+        width: 100%
+    }
+      
 }
