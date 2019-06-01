@@ -178,7 +178,7 @@ class AdministratorForm extends React.Component {
                         }
                         </Form.Item>
 
-                        <Form.Item label="Password" hasFeedback>
+                        <Form.Item label="Senha" hasFeedback>
                             {getFieldDecorator('password', {
                                 rules: [
                                 {
@@ -191,7 +191,7 @@ class AdministratorForm extends React.Component {
                                 ],
                             })(<Input.Password />)}
                         </Form.Item>
-                        <Form.Item label="Confirm Password" hasFeedback>
+                        <Form.Item label="Confirmar Senha" hasFeedback>
                             {getFieldDecorator('confirm', {
                                 rules: [
                                 {
