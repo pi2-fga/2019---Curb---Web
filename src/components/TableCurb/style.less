@@ -1,0 +1,32 @@
+@componentName: ~"table-curb";
+
+.@{componentName}{
+    width           : calc(50% - 10px);
+    height          : 200px;
+    display         : inline-flex;
+    float           : left;
+    min-height      : fit-content;
+    background-color: white;
+
+    .@{componentName}-table{
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 1010px) {
+    .@{componentName}{
+        min-height  : fit-content;
+        width       : 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .@{componentName}{
+        width           : 100%;
+        max-width       : 100%;
+        height          : auto;
+        display         : inline-flex;
+        margin-bottom   : 10px;
+    }
+}

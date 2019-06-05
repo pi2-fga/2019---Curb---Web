@@ -1,0 +1,52 @@
+
+@pageName: ~"user-register";
+
+.@{pageName}{
+  width           : 100%;
+  height          : calc(100% - 45px);
+  display         : block;
+  justify-content : center;
+  text-align      : center;
+  background-color: #F0F0F0;
+  font-style      : normal;
+  position        : relative;
+  color           : black;
+  padding-left    : 10%;
+  padding-right   : 10%;
+  padding-top     : 20px;
+  margin-top      : 70px;
+      
+  .@{pageName}-register-holder{
+    background-color: #F0F0F0;
+  }
+  
+}
+
+@media screen and (max-width: 1010px) {
+  .ant-table-wrapper {
+    height: fit-content;
+  }
+  
+.@{pageName}{
+  .@{pageName}-holder{
+    .@{pageName}-rows {
+      width: 100%;
+    }
+  }
+}
+}
+
+@media screen and (max-width: 768px) {
+  .@{pageName}{
+    width           : 100%;
+    padding-left    : 8%;
+    padding-right   : 8%;
+  }
+}
+
+@media screen and (max-width: 534px) {
+  .@{pageName}{
+    padding-left    : 3%;
+    padding-right   : 3%;
+  }
+}

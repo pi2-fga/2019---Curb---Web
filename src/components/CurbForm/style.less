@@ -1,0 +1,44 @@
+@componentName: ~"curb-form";
+
+.ant-form-item-required{
+  color: white !important;
+}
+
+.@{componentName} {
+  width           : 470px;
+  height          : 280px;
+  background-color: #4981FD;
+  position        : fixed;
+  bottom          : 20px;
+  right           : 20px;
+  text-align      : center;
+  color           : white;
+  padding         : 10px 50px;
+  border-radius   : 8px;
+
+  .@{componentName}-title {
+    font-size: 22px;
+  }
+}
+
+
+
+@media screen and (max-width: 534px) {
+
+  .@{componentName} {
+    width           : 90%;
+    height          : 350px;
+    background-color: #4981FD;
+    position        : fixed;
+    bottom          : 20px;
+    right           : 20px;
+    text-align      : center;
+    color           : white;
+    padding         : 40px 50px;
+    border-radius   : 8px;
+  
+    .@{componentName}-title {
+      font-size: 22px;
+    }
+  }
+}

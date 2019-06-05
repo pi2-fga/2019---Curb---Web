@@ -5,23 +5,28 @@ import {
     Switch
 }                   from "react-router-dom";
 import {
-    Layout, Col, Row
+    Layout,
 }                   from "antd";
+import 'antd/dist/antd.less';
 import MyHeader     from "./components/Header";
 import GeneralStatistics from "./pages/GeneralStatistics";
+import UserRegister from "./pages/UserRegister";
+import Login from "./pages/Login";
+import Curb from "./pages/Curb";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
 function AppRouter() {
     return (
-        <Layout className = 'App'>
-          <Header>
-              <MyHeader />
-          </Header>
+        <Layout className = 'App' style={{height: '100vh', minHeight: 'fit-content'}}>          
             <Content>
+                <MyHeader />
                 <Router>
                     <Switch>
-                        <Route component={GeneralStatistics} />
+                        <Route path='/login' component={Login} /> 
+                        <Route path='/cadastrar' component={UserRegister} />
+                        <Route path='/estatistica-geral' component={GeneralStatistics} />
+                        <Route path='/curb' component ={Curb} />
                     </Switch>
                 </Router>
             </Content>
