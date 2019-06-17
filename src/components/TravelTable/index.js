@@ -6,8 +6,8 @@ import { MOCK } from "../../settings/mock";
 
 
 
-export default class TableCurb extends React.Component {
-    _componentName = "table-curb";
+export default class TravelTable extends React.Component {
+    _componentName = "travel-table";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -46,12 +46,6 @@ export default class TableCurb extends React.Component {
         this.setState( {innerWidth: window.innerWidth} )
     }
 
-    handleRowClick = (item, index, event) => {
-        this.props.history.push('curb', {
-            curb: item
-        })
-    }
-
     // -------------------------------------------------------------------------//
     // Other functions
     // -------------------------------------------------------------------------//
@@ -88,18 +82,18 @@ export default class TableCurb extends React.Component {
     render() {
           const columns = [
             {
-              title     : 'Código',
+              title     : 'Data',
               dataIndex : 'cod',
             },
             {
-              title     : 'Status',
+              title     : 'Início',
               dataIndex : 'operating',
-              render    : this.renderBool
+              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'H') }
             },
             {
-              title     : 'Tinta',
+              title     : 'Fim',
               dataIndex : 'paint',
-              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'L') }
+              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'H') }
             },
             {
               title     : 'Distância Percorrida',
@@ -108,11 +102,11 @@ export default class TableCurb extends React.Component {
               render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'Km') }
             },
             {
-                title     : 'Bateria',
-                dataIndex : 'battery',
+                title     : 'Tinta utilizada',
+                dataIndex : 'paint',
                 align     : 'center',
-                render    : (text, record, index) => { return this.renderMeasures(text, record, index, '%') }
-              },
+                render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'L') }
+            },
             {
               title     : 'Ações',
               dataIndex : 'id',
@@ -122,9 +116,7 @@ export default class TableCurb extends React.Component {
 
         return (
             <div className   = {this._componentName}>
-                <div className = {this._componentName + '-title'}>
-                    CURBS
-                </div>                 
+                 
                 <Table
                     className   = {this._componentName + '-table'}
                     dataSource  = {this.state.curbs}
@@ -132,7 +124,6 @@ export default class TableCurb extends React.Component {
                     size        = {'small'}
                     pagination  = { false }
                     scroll      = {{ x: (this.state.innerWidth <= 600 ? 1000 : 0) }}
-                    onRowClick  = { this.handleRowClick }
                 />
             
             </div>
@@ -141,11 +132,11 @@ export default class TableCurb extends React.Component {
 }
 
 // Component props and default prop values
-TableCurb.propTypes = {
+TravelTable.propTypes = {
     text         : PropTypes.string
 
 };
 
-TableCurb.defaultProps = {
+TravelTable.defaultProps = {
     text         : "Table of all CURBs"
 };

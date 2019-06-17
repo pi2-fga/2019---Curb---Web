@@ -151,8 +151,13 @@ export default class GeneralStatistics extends React.Component {
                         subtitle        = { 'Curbs cadastrados' }
                     />
                 </div>   
-                <div className	= {this._pageName + '-holder'}>     
-                    <TableCurb />
+                <div className	= {this._pageName + '-holder'}>
+                    <div className = {this._pageName + '-curb-holder'}> 
+                        <TableCurb
+                            history = { this.props.history }
+                        />
+                    </div>
+
                     <div className = {this._pageName + '-rows'}>
                         <ChartCurb />
                         <SupervisorTable />

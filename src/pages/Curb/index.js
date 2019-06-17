@@ -9,6 +9,7 @@ import { Icon } from "antd";
 import WrappedCurbForm from "../../components/CurbForm";
 import WrappedSupervisorForm from "../../components/SupervisorForm";
 import CurbCard from "../../components/CurbCard";
+import TravelTable from "../../components/TravelTable";
 
 
 
@@ -24,10 +25,13 @@ export default class Curb extends React.Component {
         super(props);
 
         this.state = {
+            curb                : this.props.history && this.props.history.location && this.props.history.location.state &&
+                                  this.props.history.location.state.curb ? this.props.history.location.state.curb : {},
             showAddItem         : false,
             showAddCurb         : false,
             showAddSupervisor   : false,
         };
+        console.log(props)
     }
 
 
@@ -100,9 +104,11 @@ export default class Curb extends React.Component {
                     />
                 </div>   
                 <div className	= {this._pageName + '-holder'}>     
-                    <TableCurb />
+                    <TravelTable />
                     <div className = {this._pageName + '-row'}>
-                        <CurbCard />
+                        <CurbCard
+                            curb = { this.state.curb }
+                        />
                     </div>
                 </div>
                 { this.state.showAddCurb ?

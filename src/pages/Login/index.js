@@ -57,7 +57,9 @@ export default class Login extends React.Component {
                     className	= {this._pageName + '-add-item-wrapper'}
                     onClick     = {this.handleShowAddLogin}
                 />
-                    <WrappedLoginForm />
+                    <WrappedLoginForm
+                        history = { this.props.history }
+                    />
                       
             </div>
         );

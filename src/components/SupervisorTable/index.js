@@ -116,7 +116,9 @@ export default class SupervisorTable extends React.Component {
 
         return (
             <div className   = {this._componentName}>
-                 
+                <div className = {this._componentName + '-title'}>
+                    SUPERVISORES
+                </div>
                 <Table
                     className   = {this._componentName + '-table'}
                     dataSource  = {this.state.curbs}

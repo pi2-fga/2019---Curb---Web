@@ -23,10 +23,21 @@ function AppRouter() {
                 <MyHeader />
                 <Router>
                     <Switch>
-                        <Route path='/login' component={Login} /> 
-                        <Route path='/cadastrar' component={UserRegister} />
-                        <Route path='/estatistica-geral' component={GeneralStatistics} />
-                        <Route path='/curb' component ={Curb} />
+                        <Route
+                            path        = '/login'
+                            component   = {Login}
+                        /> 
+                        <Route
+                            path        = '/cadastrar'
+                            component   = {UserRegister}
+                        />
+                        <Route
+                            path        = '/curb'
+                            component   = {Curb}
+                        />
+                        <Route
+                            component   = {GeneralStatistics}
+                        />
                     </Switch>
                 </Router>
             </Content>

@@ -131,9 +131,7 @@ class SupervisorForm extends React.Component {
                                 }
                             ],
                         })(
-                            <Input
-                                onChange = { this.handleCPFChange }
-                            />
+                            <Input />
                         )
                     }
                     </Form.Item>

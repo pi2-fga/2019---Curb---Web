@@ -1,22 +1,15 @@
-@componentName: ~"table-curb";
+@componentName: ~"travel-table";
 
 .@{componentName}{
-    width           : 100%;
+    width           : calc(50% - 10px);
     height          : 200px;
     display         : inline-flex;
     float           : left;
     min-height      : fit-content;
     background-color: white;
-    
-    .@{componentName}-title{
-        position: absolute;
-        margin-top: 10px;
-        margin-left: 10px;
-    }
 
     .@{componentName}-table{
         width: 100%;
-        padding-top: 50px;
     }
 }
 

@@ -1,14 +1,17 @@
 @componentName: ~"login-form";
 
 .ant-form-horizontal{
-    width: 250px;
+    width: 350px;
   }
 
 .ant-row.ant-form-item{
     width: 100%;
 }
-@{componentName}{
-    max-width: 350px;
+
+.@{componentName}{
+    display         : flex;
+    flex-direction  : row;
+    justify-content : center;
     
     .@{componentName}-login-form-remember{
         display: inline-flex;

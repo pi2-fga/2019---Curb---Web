@@ -8,7 +8,6 @@ import {
     Button, 
     Checkbox
 }                       from "antd";
-import StringMask       from 'string-mask'
 
 class LoginForm extends React.Component {
     _componentName = "login-form";
@@ -29,7 +28,7 @@ class LoginForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
+              this.props.history.push('general-statistics')
           }
         });
       };
@@ -61,7 +60,7 @@ class LoginForm extends React.Component {
 
         return (
 
-            <div className   = { this._componentName + '-login-form' }>
+            <div className   = { this._componentName }>
                 <Form onSubmit={this.handleSubmit} >
                     <Form.Item>
                     {getFieldDecorator('email', {
