@@ -9,8 +9,7 @@ import { Icon } from "antd";
 import WrappedCurbForm from "../../components/CurbForm";
 import WrappedSupervisorForm from "../../components/SupervisorForm";
 import CurbCard from "../../components/CurbCard";
-
-
+import GoogleApiWrapper from "../../components/GoogleMaps";
 
 
 export default class Curb extends React.Component {
@@ -103,7 +102,9 @@ export default class Curb extends React.Component {
                     <TableCurb />
                     <div className = {this._pageName + '-row'}>
                         <CurbCard />
+                        <GoogleApiWrapper />
                     </div>
+                    
                 </div>
                 { this.state.showAddCurb ?
                 this.renderAddCurb() :
@@ -116,6 +117,8 @@ export default class Curb extends React.Component {
                     />
                 </div>
                 }
+              
+
             </div>
         );
     }
