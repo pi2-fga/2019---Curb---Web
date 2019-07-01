@@ -22,3 +22,17 @@ npm install
 ```
 npm start
 ```
+
+## Deploy
+
+acesse em:
+
+```
+https://curb-web.herokuapp.com/
+https://curb-web.herokuapp.com/cadastrar
+https://curb-web.herokuapp.com/estatistica-geral
+https://curb-web.herokuapp.com/curb
+```
+
+                        
+                     
