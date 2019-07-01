@@ -1,11 +1,11 @@
 import React        from "react";
 import PropTypes    from 'prop-types';
-import './style.less'
+import './style.less';
+import WrappedAdministratorForm from "../../components/AdministratorForm";
 
 
-
-export default class Login extends React.Component {
-    _pageName = "login";
+export default class UserRegister extends React.Component {
+    _pageName = "user-register";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -15,7 +15,8 @@ export default class Login extends React.Component {
         super(props);
 
         this.state = {
-
+            showAddItem: false,
+            showAddAdministrator: false,
         };
     }
 
@@ -29,7 +30,24 @@ export default class Login extends React.Component {
     // Event Handlers
     // -------------------------------------------------------------------------//
 
+/*     handleClick = () => {
+        this.setState({
+            name: this.state.name === 'Iolanne' ? 'Thiago' : 'Iolanne'
+        }, () => {
+            console.log(this.state.name)
+        })
+    } */
 
+    handleShowAddItem = () => {
+        this.setState({showAddItem: !this.state.showAddItem})
+    }
+
+    handleShowAddAdministrator = () => {
+        this.setState({
+            showAddAdministrator: !this.state.showAddAdministrator,
+            showAddItem: !this.state.showAddItem,
+        })
+    }
     // -------------------------------------------------------------------------//
     // Other functions
     // -------------------------------------------------------------------------//
@@ -39,21 +57,29 @@ export default class Login extends React.Component {
     // Rendering
     // -------------------------------------------------------------------------//
 
+
+    
+
     render() {
         return (
             <div className	= {this._pageName}>
-				oioioioi
+                 <div
+                    className	= {this._pageName + '-add-item-wrapper'}
+                    onClick     = {this.handleShowAddAdministrator}
+                />
+                    <WrappedAdministratorForm />
+                      
             </div>
         );
     }
 }
 
 // Component props and default prop values
-Login.propTypes = {
+UserRegister.propTypes = {
     text         : PropTypes.string
 
 };
 
-Login.defaultProps = {
-    text         : "Sample component"
+UserRegister.defaultProps = {
+    text         : "User Register"
 };

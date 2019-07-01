@@ -1,0 +1,66 @@
+
+@componentName: ~"highlight-card";
+
+.@{componentName}{
+    width           : 20%;
+    min-width       : 200px;
+    height          : 70px;
+    display         : inline-flex;
+    background-color: white;
+    
+    .@{componentName}-icon-holder{
+        height          : 100%;
+        width           : 30%;
+        display         : flex;
+        flex-direction  : row;
+        align-items     : center;
+        justify-content : center;
+
+        .@{componentName}-icon{
+            height          : 50px;
+            width           : 50px;
+            border-radius   : 50%;
+            display         : flex;
+            flex-direction  : row;
+            justify-content : center;
+            padding-top     : 12px;
+        }
+    }
+
+    .@{componentName}-text-holder{
+        height          : 100%;
+        width           : 50%;
+        text-align      : left;
+
+        .@{componentName}-title{
+            margin-top  : 17px;
+            font-size   : 22px;
+            font-weight : bold;
+            line-height : 22px;
+        }
+
+        .@{componentName}-subtitle{
+            font-size: 11px;
+        }
+    }
+
+    .@{componentName}-percent-holder{
+        height          : 100%;
+        width           : 20%;
+        background-color: white;
+
+        .@{componentName}-percent{
+            font-size: 12px;
+            margin-top: 46px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .@{componentName}{
+        width           : 100%;
+        height          : 70px;
+        display         : inline-flex;
+        margin-bottom   : 10px;
+    }
+}

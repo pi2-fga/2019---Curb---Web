@@ -402,18 +402,51 @@ module.exports = function(webpackEnv) {
             // to a file, but in development "style" loader enables hot editing
             // of CSS.
             // By default we support CSS Modules with the extension .module.css
+            
             {
-              test: cssRegex,
-              exclude: cssModuleRegex,
-              use: getStyleLoaders({
-                importLoaders: 1,
-                sourceMap: isEnvProduction && shouldUseSourceMap,
-              }),
-              // Don't consider CSS imports dead code even if the
-              // containing package claims to have no side effects.
-              // Remove this when webpack adds a warning or an error for this.
-              // See https://github.com/webpack/webpack/issues/6571
-              sideEffects: true,
+              test: /\.css$/,
+              use: [
+                require.resolve('style-loader'),
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    importLoaders: 1,
+                  },
+                },
+                {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                    // Necessary for external CSS imports to work
+                    // https://github.com/facebookincubator/create-react-app/issues/2677
+                    ident: 'postcss',
+                    plugins: () => [
+                      require('postcss-flexbugs-fixes'),
+                      autoprefixer({
+                        browsers: [
+                          '>1%',
+                          'last 4 versions',
+                          'Firefox ESR',
+                          'not ie < 9', // React doesn't support IE8 anyway
+                        ],
+                        flexbox: 'no-2009',
+                      }),
+                    ],
+                  },
+                },
+              ],
+            },
+            {
+                test: /\.less$/,
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "less-loader",
+                    options: {
+                        javascriptEnabled: true
+                    }
+                }]
             },
             // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
             // using the extension .module.css

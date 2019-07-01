@@ -1,0 +1,44 @@
+@componentName: ~"administrator-form";
+
+  .ant-form-item-required{
+    color: black !important;
+  }
+
+  @{componentName} {
+      width           : 100%;
+      background-color: #4981FD;
+      position        : fixed;
+      bottom          : 20px;
+      right           : 20px;
+      text-align      : center;
+      padding         : 10px 50px;
+      border-radius   : 8px;
+      
+      .@{componentName}-title {
+        font-size: 25px;
+        font-weight : bolder;
+      }
+  }
+      
+      
+      
+  @media screen and (max-width: 534px) {
+      
+    .@{componentName} {
+        width           : 90%;
+        height          : 350px;
+        background-color: #4981FD;
+        position        : fixed;
+        bottom          : 20px;
+        right           : 20px;
+        text-align      : center;
+        padding         : 40px 50px;
+        border-radius   : 8px;
+      
+        .@{componentName}-title {
+          font-size: 22px;
+          font-weight: bolder;
+          color: black;
+        }
+   }
+}
