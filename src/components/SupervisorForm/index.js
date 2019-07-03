@@ -5,8 +5,10 @@ import {
     Form,
     Input,
     Button,
+    message,
 }                       from "antd";
 import StringMask       from 'string-mask'
+import Axios from "axios";
 
 
 class SupervisorForm extends React.Component {
@@ -50,7 +52,16 @@ class SupervisorForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log(values)
+                values.status = 1;
+
+                Axios.post('http://gustavo2795.pythonanywhere.com/usuarios/', values)
+            		.then((response) => {
+                        message.success('Usuário criado com sucesso!')
+                        this.props.updateSupervisorList()
+            		})
+            		.catch((error) => {
+                        message.error('Falha ao criar usuário')
+            		})
             }
         });
     }
@@ -103,7 +114,7 @@ class SupervisorForm extends React.Component {
                       label         = { 'Nome' }
                     >
                     {
-                        getFieldDecorator('name', {
+                        getFieldDecorator('nome', {
                             rules: [
                                 {
                                     required: true,
@@ -132,7 +143,6 @@ class SupervisorForm extends React.Component {
                             ],
                         })(
                             <Input
-                                onChange = { this.handleCPFChange }
                             />
                         )
                     }
