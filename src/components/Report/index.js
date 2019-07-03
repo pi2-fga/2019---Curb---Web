@@ -4,6 +4,7 @@ import { renderToString } from "react-dom/server";
 import Hello from "./Hello";
 import Prints from "./Prints"
 import jsPDF from "jspdf";
+import base64Img from 'base64-img'
 import PropTypes    from 'prop-types';
 import './style.less';
 
@@ -30,26 +31,30 @@ export default class Report extends React.Component {
     print = () => {
       const string = renderToString(<Prints />);
       const pdf = new jsPDF("p", "mm", "a4");
-      const columns = [
-        "Supervisor",
-        "Código",
-        "Data",
-        "Hora",
-        "Tinta",
-        "Bateria"
-      ];
-      var rows = [
-        [
-          "Fulano",
-          "1",
-          "02/07/2019",
-          "19:00",
-          "7 L",
-          "45%"
-        ]
-      ];
-      pdf.fromHTML(string);
-      pdf.save("pdf");
+      base64Img.requestBase64('https://maps.googleapis.com/maps/api/staticmap?size=600x600&scale=1&format=png&maptype=roadmap&key=AIzaSyDnG35z7wiaggXmYy_s6P3ouH-nfw0Iy2g&path=color:0xff0000ff%7Cweight:5%7C40.737102,-73.990318%7C40.749825,-73.987963%7C40.752946,-73.987384%7C40.755823,-73.986397', function(err, res, body) {
+        
+      pdf.addImage(body, 'JPEG', 100, 100, 100, 100)
+        const columns = [
+          "Supervisor",
+          "Código",
+          "Data",
+          "Hora",
+          "Tinta",
+          "Bateria"
+        ];
+        var rows = [
+          [
+            "Fulano",
+            "1",
+            "02/07/2019",
+            "19:00",
+            "7 L",
+            "45%"
+          ]
+        ];
+        pdf.fromHTML(string);
+        pdf.save("pdf");
+    })
     };
 
     render() {
