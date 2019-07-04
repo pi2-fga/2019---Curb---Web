@@ -1,0 +1,33 @@
+
+@pageName: ~"google-maps-image";
+
+
+.@{pageName}{
+  width           : 100%;
+  height          : 100%;
+  justify-content : center;
+  background-color: transparent;
+  position        : fixed;
+  opacity         : 0;
+  padding-left    : -1000px;
+  padding-top     : -1000px;
+
+  }
+
+  
+
+@media screen and (max-width: 768px) {
+  .@{pageName}{
+    width           : 100%;
+    padding-left    : 8%;
+    padding-right   : 8%;
+
+  }
+}
+
+@media screen and (max-width: 534px) {
+  .@{pageName}{
+    padding-left    : 3%;
+    padding-right   : 3%;
+  }
+}

@@ -11,6 +11,7 @@ import WrappedSupervisorForm from "../../components/SupervisorForm";
 import CurbCard from "../../components/CurbCard";
 import GoogleApiWrapper from "../../components/GoogleMaps";
 import Report from "../../components/Report";
+import GoogleMapStatic from"../../components/GoogleMapStatic";
 
 
 export default class Curb extends React.Component {
