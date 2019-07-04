@@ -6,8 +6,8 @@ import { MOCK } from "../../settings/mock";
 
 
 
-export default class SupervisorTable extends React.Component {
-    _componentName = "supervisor-table";
+export default class TableTrip extends React.Component {
+    _componentName = "table-trip";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -66,7 +66,7 @@ export default class SupervisorTable extends React.Component {
     renderBool = (text, record, index) => {
         return (
             <div>
-                { (record.status === '1' ? 'Ativo' : '-')}
+                { (text === true ? 'Em operação' : 'Desligado')}
             </div>
         )
     }
@@ -83,25 +83,28 @@ export default class SupervisorTable extends React.Component {
           const columns = [
             {
               title     : 'Código',
-              dataIndex : 'id',
+              dataIndex : 'cod',
             },
             {
-              title     : 'Status',
-              dataIndex : 'operating',
-              render    : this.renderBool
+              title     : 'Monitoramentos',
+              dataIndex : 'monitoringNumber',
             },
             {
-              title     : 'Nome',
-              dataIndex : 'nome',
+              title     : 'Tinta',
+              dataIndex : 'paint',
+              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'L') }
             },
             {
-              title     : 'Email',
-              dataIndex : 'email',
+              title     : 'Distância Percorrida',
+              dataIndex : 'distance',
+              align     : 'center',
+              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'Km') }
             },
             {
-              title     : 'Ações',
-              dataIndex : '',
-              render    : this.renderActions
+                title     : 'Bateria',
+                dataIndex : 'battery',
+                align     : 'center',
+                render    : (text, record, index) => { return this.renderMeasures(text, record, index, '%') }
             },
           ];
 
@@ -110,11 +113,11 @@ export default class SupervisorTable extends React.Component {
                  
                 <Table
                     className   = {this._componentName + '-table'}
-                    dataSource  = {this.props.users}
+                    dataSource  = {this.state.curbs}
                     columns     = {columns}
                     size        = {'small'}
                     pagination  = { false }
-                    scroll      = {{ x: (this.state.innerWidth <= 600 ? 1000 : 0), y: 210 }}
+                    scroll      = {{ x: (this.state.innerWidth <= 600 ? 1000 : 0) }}
                 />
             
             </div>
@@ -123,11 +126,11 @@ export default class SupervisorTable extends React.Component {
 }
 
 // Component props and default prop values
-SupervisorTable.propTypes = {
+TableTrip.propTypes = {
     text         : PropTypes.string
 
 };
 
-SupervisorTable.defaultProps = {
+TableTrip.defaultProps = {
     text         : "Table of all CURBs"
 };
