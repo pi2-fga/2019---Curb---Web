@@ -11,8 +11,6 @@ import WrappedSupervisorForm from "../../components/SupervisorForm";
 import CurbCard from "../../components/CurbCard";
 import GoogleApiWrapper from "../../components/GoogleMaps";
 import Report from "../../components/Report";
-import GoogleMapStatic from"../../components/GoogleMapStatic";
-import { StaticGoogleMap, Path } from "react-static-google-map";
 import TableTrip from "../../components/TableTrip";
 
 
