@@ -97,7 +97,7 @@ export default class Curb extends React.Component {
                     />
                     <HighlightCard 
                         unitOfMeasure   = { '' }
-                        amount          = { 12 }
+                        amount          = { this.state.curbs[0].travels.length }
                         subtitle        = { 'Viagens realizadas' }
                     />
                 </div>   
@@ -106,7 +106,9 @@ export default class Curb extends React.Component {
                         curbs = { this.state.curbs }
                     />
                     <div className = {this._pageName + '-row'}>
-                        <CurbCard />
+                        <CurbCard
+                            curb = { this.state.curbs[0] }
+                        />
                         <GoogleApiWrapper />
                     </div>
                     
