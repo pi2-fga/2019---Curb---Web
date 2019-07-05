@@ -10,6 +10,8 @@ import WrappedCurbForm from "../../components/CurbForm";
 import WrappedSupervisorForm from "../../components/SupervisorForm";
 import CurbCard from "../../components/CurbCard";
 import GoogleApiWrapper from "../../components/GoogleMaps";
+import Report from "../../components/Report";
+import TableTrip from "../../components/TableTrip";
 
 
 export default class Curb extends React.Component {
@@ -99,7 +101,7 @@ export default class Curb extends React.Component {
                     />
                 </div>   
                 <div className	= {this._pageName + '-holder'}>     
-                    <TableCurb />
+                    <TableTrip />
                     <div className = {this._pageName + '-row'}>
                         <CurbCard />
                         <GoogleApiWrapper />

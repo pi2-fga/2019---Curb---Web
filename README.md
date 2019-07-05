@@ -12,7 +12,7 @@ Para executar a aplicação siga os seguintes passsos:
 
 Passo 1: Clone o repositório
 ```
-git clone https://github.com/pi2-fga/2019-Curb-Front-End-Web/
+git clone https://github.com/pi2-fga/2019-Curb-Front-End-Web.git
 ```
 Passo 2: Entre na pasta do projeto e dê os seguintes comandos
 
@@ -22,3 +22,18 @@ npm install
 ```
 npm start
 ```
+
+## Deploy
+
+acesse em:
+
+```
+https://curb-web.herokuapp.com/
+https://curb-web.herokuapp.com/login
+https://curb-web.herokuapp.com/cadastrar
+https://curb-web.herokuapp.com/estatistica-geral
+https://curb-web.herokuapp.com/curb
+```
+
+                        
+                     

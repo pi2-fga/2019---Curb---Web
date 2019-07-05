@@ -8,6 +8,7 @@ import SupervisorTable from "../../components/SupervisorTable";
 import { Icon } from "antd";
 import WrappedCurbForm from "../../components/CurbForm";
 import WrappedSupervisorForm from "../../components/SupervisorForm";
+import Axios from "axios";
 
 
 
@@ -29,11 +30,27 @@ export default class GeneralStatistics extends React.Component {
         };
     }
 
+    componentDidMount() {
+        this.getUsers()
+    }
+
 
     // -------------------------------------------------------------------------//
     // Requests
     // -------------------------------------------------------------------------//
 
+    getUsers(){
+        Axios.get('http://gustavo2795.pythonanywhere.com/usuarios/')
+    		.then((response) => {
+                console.log(response.data)
+                this.setState({
+                    users: response.data && response.data.length ? response.data : []
+                })
+    		})
+    		.catch((error) => {
+    			console.log('Fail getting users')
+    		})
+    }
 
     // -------------------------------------------------------------------------//
     // Event Handlers
@@ -68,7 +85,14 @@ export default class GeneralStatistics extends React.Component {
     // Other functions
     // -------------------------------------------------------------------------//
 
-
+    updateSupervisorList = () => {
+        this.getUsers()
+        this.setState({
+            showAddItem         : false,
+            showAddCurb         : false,
+            showAddSupervisor   : false,
+        })
+    }
     // -------------------------------------------------------------------------//
     // Rendering
     // -------------------------------------------------------------------------//
@@ -92,7 +116,9 @@ export default class GeneralStatistics extends React.Component {
                     className	= {this._pageName + '-add-item-wrapper'}
                     onClick     = {this.handleShowAddSupervisor}
                 />
-                <WrappedSupervisorForm />
+                <WrappedSupervisorForm
+                    updateSupervisorList = { this.updateSupervisorList }
+                />
             </div>
         )
     }
@@ -155,7 +181,9 @@ export default class GeneralStatistics extends React.Component {
                     <TableCurb />
                     <div className = {this._pageName + '-rows'}>
                         <ChartCurb />
-                        <SupervisorTable />
+                        <SupervisorTable
+                            users = { this.state.users }
+                        />
                     </div>
                 </div>
                 { this.state.showAddItem ?
