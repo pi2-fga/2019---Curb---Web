@@ -27,6 +27,9 @@ export default class GeneralStatistics extends React.Component {
             showAddItem         : false,
             showAddCurb         : false,
             showAddSupervisor   : false,
+            curbs               : [],
+            loadingCurb         : true,
+            loadingUsers        : true,
         };
     }
 
@@ -45,7 +48,8 @@ export default class GeneralStatistics extends React.Component {
     		.then((response) => {
                 console.log(response.data)
                 this.setState({
-                    users: response.data && response.data.length ? response.data : []
+                    users           : response.data && response.data.length ? response.data : [],
+                    loadingUsers    : false,
                 })
     		})
     		.catch((error) => {
@@ -64,8 +68,8 @@ export default class GeneralStatistics extends React.Component {
                         let travel = {}
                         if(temp.length)
                             travel = {
-                                paint       : temp[temp.length-1].tinta - temp[0].tinta,
-                                battery     : temp[temp.length-1].bateria - temp[0].bateria,
+                                paint       : temp[temp.length-1].tinta,
+                                battery     : temp[temp.length-1].bateria,
                                 monitorings : temp
                             }
                         travels.push(travel)
@@ -75,8 +79,8 @@ export default class GeneralStatistics extends React.Component {
                         temp.push(response.data[i])
                         if(i === response.data.length - 1){
                             let travel = {
-                                paint       : temp[temp.length-1].tinta - temp[0].tinta,
-                                battery     : temp[temp.length-1].bateria - temp[0].bateria,
+                                paint       : temp[temp.length-1].tinta,
+                                battery     : temp[temp.length-1].bateria,
                                 monitorings : temp
                             }
                             travels.push(travel)
@@ -142,17 +146,19 @@ export default class GeneralStatistics extends React.Component {
     }
 
     setCurb(){
+        console.log(this.state)
         let curb = {
-            paint   : Array.isArray(this.state.monitoring) && this.state.monitoring.length ? this.state.monitoring[this.state.monitoring.length-1].paint : 0,
-            bateria : Array.isArray(this.state.monitoring) && this.state.monitoring.length ? this.state.monitoring[this.state.monitoring.length-1].bateria : 0,
+            cod     : 1,
+            paint   : Array.isArray(this.state.monitorings) && this.state.monitorings.length ? this.state.monitorings[this.state.monitorings.length-1].tinta : 0,
+            battery : Array.isArray(this.state.monitorings) && this.state.monitorings.length ? this.state.monitorings[this.state.monitorings.length-1].bateria : 0,
             travels : this.state.travels,
-            status  : Array.isArray(this.state.monitoring) && this.state.monitoring.length && this.state.monitoring[this.state.monitoring.length-1].status === 'true' ? 'Ligado' : 'Desligado'
+            status  : Array.isArray(this.state.monitorings) && this.state.monitorings.length && this.state.monitorings[this.state.monitorings.length-1].status === 'true' ? 'Ligado' : 'Desligado'
         }
 
         this.setState({
-            curb: curb
+            curbs: [curb]
         }, () => {
-            console.log(this.state)
+            this.setState({loadingCurb: false})
         })
     }
 
@@ -241,11 +247,16 @@ export default class GeneralStatistics extends React.Component {
                     />
                 </div>   
                 <div className	= {this._pageName + '-holder'}>     
-                    <TableCurb />
+                    <TableCurb
+                        curbs   = { this.state.curbs }
+                        history = { this.props.history }
+                        loading = { this.state.loadingCurb }
+                    />
                     <div className = {this._pageName + '-rows'}>
                         <ChartCurb />
                         <SupervisorTable
-                            users = { this.state.users }
+                            users   = { this.state.users }
+                            loading = { this.state.loadingUsers }
                         />
                     </div>
                 </div>
