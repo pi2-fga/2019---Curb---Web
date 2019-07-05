@@ -32,6 +32,7 @@ export default class GeneralStatistics extends React.Component {
 
     componentDidMount() {
         this.getUsers()
+        this.getMonitorings()
     }
 
 
@@ -49,6 +50,52 @@ export default class GeneralStatistics extends React.Component {
     		})
     		.catch((error) => {
     			console.log('Fail getting users')
+    		})
+    }
+
+    getMonitorings(){
+        Axios.get('http://gustavo2795.pythonanywhere.com/monitoramentos/')
+    		.then((response) => {
+                let date = ''
+                let travels = []
+                let temp = []
+                for(let i=0; i<response.data.length; i++){
+                    if(response.data[i].data !== date && i!==0){
+                        let travel = {}
+                        if(temp.length)
+                            travel = {
+                                paint       : temp[temp.length-1].tinta - temp[0].tinta,
+                                battery     : temp[temp.length-1].bateria - temp[0].bateria,
+                                monitorings : temp
+                            }
+                        travels.push(travel)
+                        date = response.data[i].data;
+                        temp = [response.data[i]]
+                    } else {
+                        temp.push(response.data[i])
+                        if(i === response.data.length - 1){
+                            let travel = {
+                                paint       : temp[temp.length-1].tinta - temp[0].tinta,
+                                battery     : temp[temp.length-1].bateria - temp[0].bateria,
+                                monitorings : temp
+                            }
+                            travels.push(travel)
+                            date = response.data[i].data;
+                            temp = []
+                        }
+                        if(i === 0)
+                            date = response.data[i].data
+                    }
+                }
+                this.setState({
+                    monitorings : response.data && response.data.length ? response.data : [],
+                    travels     : travels,
+                }, () =>{
+                    this.setCurb()
+                })
+    		})
+    		.catch((error) => {
+    			console.log('Fail getting monitorings')
     		})
     }
 
@@ -93,6 +140,22 @@ export default class GeneralStatistics extends React.Component {
             showAddSupervisor   : false,
         })
     }
+
+    setCurb(){
+        let curb = {
+            paint   : Array.isArray(this.state.monitoring) && this.state.monitoring.length ? this.state.monitoring[this.state.monitoring.length-1].paint : 0,
+            bateria : Array.isArray(this.state.monitoring) && this.state.monitoring.length ? this.state.monitoring[this.state.monitoring.length-1].bateria : 0,
+            travels : this.state.travels,
+            status  : Array.isArray(this.state.monitoring) && this.state.monitoring.length && this.state.monitoring[this.state.monitoring.length-1].status === 'true' ? 'Ligado' : 'Desligado'
+        }
+
+        this.setState({
+            curb: curb
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
     // -------------------------------------------------------------------------//
     // Rendering
     // -------------------------------------------------------------------------//
@@ -173,7 +236,7 @@ export default class GeneralStatistics extends React.Component {
                     />
                     <HighlightCard 
                         unitOfMeasure   = { '' }
-                        amount          = { 12 }
+                        amount          = { 1 }
                         subtitle        = { 'Curbs cadastrados' }
                     />
                 </div>   
