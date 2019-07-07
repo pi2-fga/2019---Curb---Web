@@ -58,6 +58,18 @@ export default class CurbCard extends React.Component {
                     />
                 </div>
                 <div className   = {this._componentName + '-info'}>
+                    <div className   = {this._componentName + '-row'} >
+                        <div className   = {this._componentName + '-title'}>
+                            BATERIA
+                        </div>
+                        { this.props.curb.battery + '%'}
+                    </div>
+                    <div className   = {this._componentName + '-row'}>
+                        <div className   = {this._componentName + '-title'}>
+                            TINTA
+                        </div>
+                        { this.props.curb.paint + ' litros'}
+                    </div>
                 </div>
             </div>
         );

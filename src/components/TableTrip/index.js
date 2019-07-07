@@ -15,10 +15,10 @@ export default class TableTrip extends React.Component {
 
     constructor(props) {
         super(props);
-
+        console.log(this.props.curbs)
         this.state = {
             showLogout  : false,
-            curbs       : MOCK.curbs,
+            curbs       : this.props.curbs,
             innerWidth  : 1,
         };
 
@@ -79,26 +79,29 @@ export default class TableTrip extends React.Component {
         )
     }
 
+    renderMonitorings(text, record, index, scale){
+        return (
+            <div>
+                { record.monitorings.length }
+            </div>
+        )
+    }
+
     render() {
           const columns = [
             {
               title     : 'Código',
               dataIndex : 'cod',
+              render    : (text, record, index) => { return <div>{index + 1}</div> }
             },
             {
               title     : 'Monitoramentos',
-              dataIndex : 'monitoringNumber',
+              render    : (text, record, index) => { return this.renderMonitorings(text, record, index, 'L') }
             },
             {
               title     : 'Tinta',
               dataIndex : 'paint',
               render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'L') }
-            },
-            {
-              title     : 'Distância Percorrida',
-              dataIndex : 'distance',
-              align     : 'center',
-              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'Km') }
             },
             {
                 title     : 'Bateria',
@@ -113,7 +116,7 @@ export default class TableTrip extends React.Component {
                  
                 <Table
                     className   = {this._componentName + '-table'}
-                    dataSource  = {this.state.curbs}
+                    dataSource  = {this.state.curbs[0].travels}
                     columns     = {columns}
                     size        = {'small'}
                     pagination  = { false }

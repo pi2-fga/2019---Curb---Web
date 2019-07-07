@@ -2,16 +2,18 @@ import React        from "react";
 import PropTypes    from 'prop-types';
 import './style.less'
 import HighlightCard from "../../components/HighlightCard";
-import TableCurb from "../../components/TableCurb";
-import ChartCurb from "../../components/ChartCurb";
-import SupervisorTable from "../../components/SupervisorTable";
 import { Icon } from "antd";
 import WrappedCurbForm from "../../components/CurbForm";
-import WrappedSupervisorForm from "../../components/SupervisorForm";
 import CurbCard from "../../components/CurbCard";
 import GoogleApiWrapper from "../../components/GoogleMaps";
-import Report from "../../components/Report";
 import TableTrip from "../../components/TableTrip";
+import jsPDF from "jspdf";
+import base64Img from 'base64-img';
+import { StaticGoogleMap, Path, Marker } from "react-static-google-map";
+import $ from "jquery";
+import Report from "../../components/Report";
+import { renderToString } from "react-dom/server";
+import ReactDOMServer from "react-dom/server";
 
 
 export default class Curb extends React.Component {
@@ -25,34 +27,49 @@ export default class Curb extends React.Component {
         super(props);
 
         this.state = {
+            curbs               : this.props.location && this.props.location.state && this.props.location.state.curbs ? this.props.location.state.curbs : {},
             showAddItem         : false,
             showAddCurb         : false,
             showAddSupervisor   : false,
+            url                 : null,
         };
     }
-
 
     // -------------------------------------------------------------------------//
     // Requests
     // -------------------------------------------------------------------------//
 
+    componentDidMount(){
+        setTimeout(() => {
+            let imgObj = $('img')[0];
+            if(imgObj){
+                let url = imgObj.getAttribute('src')
+                this.setState({url: url});
+            }
+        }, 100)
+    }
 
+    print = () => {
+        const string = renderToString(<Report />);
+        const pdf = new jsPDF("p", "mm", "a4");
+        base64Img.requestBase64(this.state.url, function(err, res, body) {
+                pdf.addImage(body,'JPEG', 5, 115, 150, 80)
+                pdf.fromHTML(string);
+                pdf.save("relatorio-curb");
+            })
+            console.log("PRINT:")
+            console.log(this.state.url);
+      };
+      
     // -------------------------------------------------------------------------//
     // Event Handlers
     // -------------------------------------------------------------------------//
-
-/*     handleClick = () => {
-        this.setState({
-            name: this.state.name === 'Iolanne' ? 'Thiago' : 'Iolanne'
-        }, () => {
-            console.log(this.state.name)
-        })
-    } */
 
     handleShowAddCurb = () => {
         this.setState({
             showAddCurb: !this.state.showAddCurb,
             showAddItem: !this.state.showAddItem,
+
         })
     }
     // -------------------------------------------------------------------------//
@@ -77,6 +94,9 @@ export default class Curb extends React.Component {
     }
     
     render() {
+        console.log("CURB:")
+        console.log(this.state.curbs[0])
+        
         return (
             <div className	= {this._pageName}>
                 <div className	= {this._pageName + '-highlight-holder'}>
@@ -96,16 +116,57 @@ export default class Curb extends React.Component {
                     />
                     <HighlightCard 
                         unitOfMeasure   = { '' }
-                        amount          = { 12 }
+                        amount          = { this.state.curbs[0].travels.length }
                         subtitle        = { 'Viagens realizadas' }
                     />
                 </div>   
                 <div className	= {this._pageName + '-holder'}>     
-                    <TableTrip />
+                    <TableTrip
+                        curbs = { this.state.curbs }
+                    />
+                      
                     <div className = {this._pageName + '-row'}>
-                        <CurbCard />
+                        <div hidden>
+                    <StaticGoogleMap 
+                            size    = "800x300" 
+                            apiKey  = "AIzaSyDnG35z7wiaggXmYy_s6P3ouH-nfw0Iy2g"
+                            zoom    = "12">
+                            
+                            <Marker
+                                location={{ lat: 40.737102, lng: -73.990318 }}
+                                color="red"
+                                label="curb"
+                            />
+                            <Path
+                                color="0xff0000ff"
+                                points={[
+                                '40.737102,-73.990318',
+                                '40.749825,-73.987963',
+                                '40.752946,-73.987384',
+                                '40.755823,-73.986397',
+                                ]}
+                            />
+                        </StaticGoogleMap>
+                        </div>
+                        <CurbCard
+                            curb = { this.state.curbs[0] }
+                        />
+
+                    <button onClick={this.print}>Baixar Relatório</button>
+
+                      
                         <GoogleApiWrapper />
                     </div>
+
+                    <div hidden> 
+                        <Report
+                                supervisor = {this.state.curbs[0].userActive}
+                                tinta = {this.state.curbs[0].travels[0].paint}
+                                bateria = {this.state.curbs[0].travels[0].battery}
+                                data = {this.state.curbs[0].travels[0].monitorings[0].data}
+                                hora = {this.state.curbs[0].travels[0].monitorings[0].hora}
+                            />
+                    </div> 
                     
                 </div>
                 { this.state.showAddCurb ?
@@ -119,8 +180,6 @@ export default class Curb extends React.Component {
                     />
                 </div>
                 }
-              
-
             </div>
         );
     }

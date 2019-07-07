@@ -27,11 +27,19 @@ export default class GeneralStatistics extends React.Component {
             showAddItem         : false,
             showAddCurb         : false,
             showAddSupervisor   : false,
+            curbs               : [],
+            infoCurbs           : [],
+            users               : [],
+            loadingInfoCurbs    : true,
+            loadingCurb         : true,
+            loadingUsers        : true,
         };
     }
 
     componentDidMount() {
         this.getUsers()
+        this.getMonitorings()
+        this.getCURBS()
     }
 
 
@@ -44,11 +52,72 @@ export default class GeneralStatistics extends React.Component {
     		.then((response) => {
                 console.log(response.data)
                 this.setState({
-                    users: response.data && response.data.length ? response.data : []
+                    users           : response.data && response.data.length ? response.data : [],
+                    loadingUsers    : false,
                 })
     		})
     		.catch((error) => {
     			console.log('Fail getting users')
+    		})
+    }
+
+    getCURBS(){
+        Axios.get('http://gustavo2795.pythonanywhere.com/curbs/')
+    		.then((response) => {
+                console.log(response.data)
+                this.setState({
+                    infoCurbs           : response.data && response.data.length ? response.data : [],
+                    loadingInfoCurbs    : false,
+                })
+    		})
+    		.catch((error) => {
+    			console.log('Fail getting users')
+    		})
+    }
+
+    getMonitorings(){
+        Axios.get('http://gustavo2795.pythonanywhere.com/monitoramentos/')
+    		.then((response) => {
+                let date = ''
+                let travels = []
+                let temp = []
+                for(let i=0; i<response.data.length; i++){
+                    if(response.data[i].data !== date && i!==0){
+                        let travel = {}
+                        if(temp.length)
+                            travel = {
+                                paint       : temp[temp.length-1].tinta,
+                                battery     : temp[temp.length-1].bateria,
+                                monitorings : temp
+                            }
+                        travels.push(travel)
+                        date = response.data[i].data;
+                        temp = [response.data[i]]
+                    } else {
+                        temp.push(response.data[i])
+                        if(i === response.data.length - 1){
+                            let travel = {
+                                paint       : temp[temp.length-1].tinta,
+                                battery     : temp[temp.length-1].bateria,
+                                monitorings : temp
+                            }
+                            travels.push(travel)
+                            date = response.data[i].data;
+                            temp = []
+                        }
+                        if(i === 0)
+                            date = response.data[i].data
+                    }
+                }
+                this.setState({
+                    monitorings : response.data && response.data.length ? response.data : [],
+                    travels     : travels,
+                }, () =>{
+                    this.setCurb()
+                })
+    		})
+    		.catch((error) => {
+    			console.log('Fail getting monitorings')
     		})
     }
 
@@ -93,6 +162,26 @@ export default class GeneralStatistics extends React.Component {
             showAddSupervisor   : false,
         })
     }
+
+
+    setCurb(){
+        console.log(this.state)
+        let curb = {
+            cod     : 1,
+            userActive: this.state.users[0].nome,
+            paint   : Array.isArray(this.state.monitorings) && this.state.monitorings.length ? this.state.monitorings[this.state.monitorings.length-1].tinta : 0,
+            battery : Array.isArray(this.state.monitorings) && this.state.monitorings.length ? this.state.monitorings[this.state.monitorings.length-1].bateria : 0,
+            travels : this.state.travels,
+            status  : Array.isArray(this.state.monitorings) && this.state.monitorings.length && this.state.monitorings[this.state.monitorings.length-1].status === 'true' ? 'Ligado' : 'Desligado'
+        }
+
+        this.setState({
+            curbs: [curb]
+        }, () => {
+            this.setState({loadingCurb: false})
+        })
+    }
+
     // -------------------------------------------------------------------------//
     // Rendering
     // -------------------------------------------------------------------------//
@@ -173,16 +262,21 @@ export default class GeneralStatistics extends React.Component {
                     />
                     <HighlightCard 
                         unitOfMeasure   = { '' }
-                        amount          = { 12 }
+                        amount          = { 1 }
                         subtitle        = { 'Curbs cadastrados' }
                     />
                 </div>   
                 <div className	= {this._pageName + '-holder'}>     
-                    <TableCurb />
+                    <TableCurb
+                        curbs   = { this.state.curbs }
+                        history = { this.props.history }
+                        loading = { this.state.loadingCurb }
+                    />
                     <div className = {this._pageName + '-rows'}>
                         <ChartCurb />
                         <SupervisorTable
-                            users = { this.state.users }
+                            users   = { this.state.users }
+                            loading = { this.state.loadingUsers }
                         />
                     </div>
                 </div>
