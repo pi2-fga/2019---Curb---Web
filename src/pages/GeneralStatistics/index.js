@@ -28,6 +28,9 @@ export default class GeneralStatistics extends React.Component {
             showAddCurb         : false,
             showAddSupervisor   : false,
             curbs               : [],
+            infoCurbs           : [],
+            users               : [],
+            loadingInfoCurbs    : true,
             loadingCurb         : true,
             loadingUsers        : true,
         };
@@ -36,6 +39,7 @@ export default class GeneralStatistics extends React.Component {
     componentDidMount() {
         this.getUsers()
         this.getMonitorings()
+        this.getCURBS()
     }
 
 
@@ -50,6 +54,20 @@ export default class GeneralStatistics extends React.Component {
                 this.setState({
                     users           : response.data && response.data.length ? response.data : [],
                     loadingUsers    : false,
+                })
+    		})
+    		.catch((error) => {
+    			console.log('Fail getting users')
+    		})
+    }
+
+    getCURBS(){
+        Axios.get('http://gustavo2795.pythonanywhere.com/curbs/')
+    		.then((response) => {
+                console.log(response.data)
+                this.setState({
+                    infoCurbs           : response.data && response.data.length ? response.data : [],
+                    loadingInfoCurbs    : false,
                 })
     		})
     		.catch((error) => {
@@ -145,10 +163,12 @@ export default class GeneralStatistics extends React.Component {
         })
     }
 
+
     setCurb(){
         console.log(this.state)
         let curb = {
             cod     : 1,
+            userActive: this.state.users[0].nome,
             paint   : Array.isArray(this.state.monitorings) && this.state.monitorings.length ? this.state.monitorings[this.state.monitorings.length-1].tinta : 0,
             battery : Array.isArray(this.state.monitorings) && this.state.monitorings.length ? this.state.monitorings[this.state.monitorings.length-1].bateria : 0,
             travels : this.state.travels,

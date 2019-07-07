@@ -80,5 +80,5 @@ MyHeader.propTypes = {
 };
 
 MyHeader.defaultProps = {
-    text         : "Thiago Felix"
+    text         : "inCurb"
 };
