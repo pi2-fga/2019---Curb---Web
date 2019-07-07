@@ -63,7 +63,7 @@ export default class MyHeader extends React.Component {
                     className   = {this._componentName + '-avatar'}
                     onClick     = {() => {this.setState({showLogout: !this.state.showLogout})}}
                 >
-                    <Avatar size="large" icon="user" />
+                    <Icon size="large" type="menu" />
                 </div>
                 {
                     this.state.showLogout && this.renderLogout()                    
