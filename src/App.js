@@ -13,8 +13,7 @@ import GeneralStatistics from "./pages/GeneralStatistics";
 import UserRegister from "./pages/UserRegister";
 import Login from "./pages/Login";
 import Curb from "./pages/Curb";
-import GoogleMapsImage from "./pages/GoogleMapsImage";
-import Report from "./components/Report";
+
 
 const { Content } = Layout;
 
@@ -29,8 +28,6 @@ function AppRouter() {
                         <Route path='/cadastrar' component={UserRegister} />
                         <Route path='/estatistica-geral' component={GeneralStatistics} />
                         <Route path='/curb' component ={Curb} />
-                        <Route path='/google-maps-image' component={GoogleMapsImage}/>
-                        <Route path='/mapa' component={Report}/>
                     </Switch>
                 </Router>
             </Content>

@@ -1,5 +1,4 @@
 import React        from "react";
-import './style.less'
 
 
 export default ({ tinta, bateria, data, hora, supervisor }) => 
