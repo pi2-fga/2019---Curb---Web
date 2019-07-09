@@ -1,7 +1,7 @@
 import React        from "react";
 import PropTypes    from 'prop-types';
 import './style.less';
-import {Chart} from 'react-google-charts';
+import {Chart, Component} from 'react-google-charts';
 
 
 
@@ -44,6 +44,43 @@ export default class ChartCurb extends React.Component {
         return (
             <div className   = {this._componentName}>
                 <div className = {this._componentName + '-chart'}>
+                    
+                        {/* initialState={{ dataLoadingStatus: 'loading', chartData: [] }}
+                        didMount={async function(component) {
+                            const response = await fetch(
+                            'http://gustavo2795.pythonanywhere.com/monitoramentos/',
+                            )
+                            const json = await response.json()
+                            const rateCurrencyNames = Object.keys(json.rates)
+                            const rateCurrencyValues = Object.values(json.rates)
+                            const chartData = [['Currency Name', 'Currency Rate']]
+                            for (let i = 0; i < rateCurrencyNames.length; i += 1) {
+                            chartData.push([rateCurrencyNames[i], rateCurrencyValues[i]])
+                            }
+                            component.setState({
+                            dataLoadingStatus: 'ready',
+                            chartData: chartData,
+                            })
+                        }}
+                        >
+                        {component => {
+                            return component.state.dataLoadingStatus === 'ready' ? (
+                            <Chart
+                                chartType="BarChart"
+                                data={component.state.chartData}
+                                options={{
+                                chartArea: {
+                                    width: '50%',
+                                },
+                                title: 'EUR Price',
+                                }}
+                                rootProps={{ 'data-testid': '1' }}
+                            />
+                            ) : (
+                            <div>Fetching data from API</div>
+                            )
+                        }} */}
+                    
                     <Chart
                         chartType="Bar"
                         loader={<div>Loading Chart</div>}

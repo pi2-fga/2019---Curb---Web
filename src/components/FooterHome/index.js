@@ -5,8 +5,8 @@ import { Avatar, Icon } from "antd";
 
 
 
-export default class MyHeader extends React.Component {
-    _componentName = "header";
+export default class FooterHome extends React.Component {
+    _componentName = "footer-home";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -16,7 +16,8 @@ export default class MyHeader extends React.Component {
         super(props);
 
         this.state = {
-            showLogout: false,
+            entrar    : "Entrar",
+            cadastrar : "Cadastrar",
         };
     }
 
@@ -40,45 +41,28 @@ export default class MyHeader extends React.Component {
     // Rendering
     // -------------------------------------------------------------------------//
 
-    renderLogout(){
-        return(
-            <div className   = {this._componentName + '-logout'}>
-                SAIR
-                
-                <Icon
-                    type        = "logout"
-                    className   = {this._componentName + '-icon'}
-                />
-            </div>
-        )
-    }
 
     render() {
         return (
             <div className   = {this._componentName}>
-                <div className   = {this._componentName + '-name'}>
-                    {this.props.text}
+                <div className   = {this._componentName + '-name' } >
+                    <a href="/login"><p>{this.state.entrar}</p> </a>
                 </div>
-                <div
-                    className   = {this._componentName + '-avatar'}
-                    onClick     = {() => {this.setState({showLogout: !this.state.showLogout})}}
-                >
-                    <Icon size="large" type="menu" />
+                <div className   = {this._componentName + '-name'} >
+                <a href="cadastrar">{this.state.cadastrar}</a>
                 </div>
-                {
-                    this.state.showLogout && this.renderLogout()                    
-                }
+               
             </div>
         );
     }
 }
 
 // Component props and default prop values
-MyHeader.propTypes = {
+FooterHome.propTypes = {
     text         : PropTypes.string
 
 };
 
-MyHeader.defaultProps = {
+FooterHome.defaultProps = {
     text         : "inCurb"
 };

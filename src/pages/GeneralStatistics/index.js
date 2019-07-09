@@ -10,9 +10,6 @@ import WrappedCurbForm from "../../components/CurbForm";
 import WrappedSupervisorForm from "../../components/SupervisorForm";
 import Axios from "axios";
 
-
-
-
 export default class GeneralStatistics extends React.Component {
     _pageName = "general-statistics";
 
@@ -28,9 +25,7 @@ export default class GeneralStatistics extends React.Component {
             showAddCurb         : false,
             showAddSupervisor   : false,
             curbs               : [],
-            infoCurbs           : [],
             users               : [],
-            loadingInfoCurbs    : true,
             loadingCurb         : true,
             loadingUsers        : true,
         };
@@ -39,7 +34,6 @@ export default class GeneralStatistics extends React.Component {
     componentDidMount() {
         this.getUsers()
         this.getMonitorings()
-        this.getCURBS()
     }
 
 
@@ -54,20 +48,6 @@ export default class GeneralStatistics extends React.Component {
                 this.setState({
                     users           : response.data && response.data.length ? response.data : [],
                     loadingUsers    : false,
-                })
-    		})
-    		.catch((error) => {
-    			console.log('Fail getting users')
-    		})
-    }
-
-    getCURBS(){
-        Axios.get('http://gustavo2795.pythonanywhere.com/curbs/')
-    		.then((response) => {
-                console.log(response.data)
-                this.setState({
-                    infoCurbs           : response.data && response.data.length ? response.data : [],
-                    loadingInfoCurbs    : false,
                 })
     		})
     		.catch((error) => {
@@ -120,6 +100,8 @@ export default class GeneralStatistics extends React.Component {
     			console.log('Fail getting monitorings')
     		})
     }
+
+    
 
     // -------------------------------------------------------------------------//
     // Event Handlers
@@ -238,6 +220,7 @@ export default class GeneralStatistics extends React.Component {
     }
 
     render() {
+        console.log(this.state.curbs[0])
         return (
             <div className	= {this._pageName}>
                 <div className	= {this._pageName + '-highlight-holder'}>
@@ -258,7 +241,7 @@ export default class GeneralStatistics extends React.Component {
                     <HighlightCard 
                         unitOfMeasure   = { '' }
                         amount          = { 87 }
-                        subtitle        = { 'Viagens realizadas' }
+                        subtitle        = { '' }
                     />
                     <HighlightCard 
                         unitOfMeasure   = { '' }
@@ -273,7 +256,11 @@ export default class GeneralStatistics extends React.Component {
                         loading = { this.state.loadingCurb }
                     />
                     <div className = {this._pageName + '-rows'}>
-                        <ChartCurb />
+                        <ChartCurb 
+                              curbs ={this.state.curbs}
+                            //  tinta = {this.state.curbs[0].travels[0].paint}
+                            //  bateria = {this.state.curbs[0].travels[0].battery}
+                        />
                         <SupervisorTable
                             users   = { this.state.users }
                             loading = { this.state.loadingUsers }

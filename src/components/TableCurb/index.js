@@ -97,7 +97,7 @@ export default class TableCurb extends React.Component {
             {
               title     : 'Tinta',
               dataIndex : 'paint',
-              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'L') }
+              render    : (text, record, index) => { return this.renderMeasures(text, record, index, '%') }
             },
             {
                 title     : 'Bateria',
