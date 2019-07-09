@@ -28,12 +28,13 @@ export default class GeneralStatistics extends React.Component {
             users               : [],
             loadingCurb         : true,
             loadingUsers        : true,
+            usedL               : 0,
+            travels             : [],
         };
     }
 
     componentDidMount() {
         this.getUsers()
-        this.getMonitorings()
     }
 
 
@@ -48,6 +49,8 @@ export default class GeneralStatistics extends React.Component {
                 this.setState({
                     users           : response.data && response.data.length ? response.data : [],
                     loadingUsers    : false,
+                }, () => {
+                    this.getMonitorings()
                 })
     		})
     		.catch((error) => {
@@ -161,7 +164,18 @@ export default class GeneralStatistics extends React.Component {
             curbs: [curb]
         }, () => {
             this.setState({loadingCurb: false})
+            this.calculatePaint()
         })
+    }
+
+    calculatePaint(){
+        let totalInL = 0;
+        Array.isArray(this.state.curbs) && this.state.curbs.length && Array.isArray(this.state.curbs[0].travels) && this.state.curbs[0].travels.map((travel) => {
+            let percentageOfUsedPaint = travel.monitorings[0].tinta - travel.monitorings[travel.monitorings.length - 1].tinta
+            let inL = 3 * percentageOfUsedPaint / 100
+            totalInL -= inL;
+        })
+        this.setState({usedL: totalInL})
     }
 
     // -------------------------------------------------------------------------//
@@ -224,29 +238,28 @@ export default class GeneralStatistics extends React.Component {
         return (
             <div className	= {this._pageName}>
                 <div className	= {this._pageName + '-highlight-holder'}>
-                    <HighlightCard
+                    {/* <HighlightCard
                         unitOfMeasure   = { 'km' }
                         amount          = { 278 }
                         subtitle        = { 'Percorridos' }
                         isPositive      = { true }
                         percentage      = { 7.34 }
-                    />
+                    /> */}
                     <HighlightCard 
                         unitOfMeasure   = { 'L' }
-                        amount          = { 145 }
+                        amount          = { this.state.usedL }
                         subtitle        = { 'Tinta utilizada' }
                         isPositive      = { false }
-                        percentage      = { 3.2 }
                     />
                     <HighlightCard 
                         unitOfMeasure   = { '' }
-                        amount          = { 87 }
-                        subtitle        = { '' }
+                        amount          = { this.state.travels.length }
+                        subtitle        = { 'Viagens realizadas' }
                     />
                     <HighlightCard 
                         unitOfMeasure   = { '' }
                         amount          = { 1 }
-                        subtitle        = { 'Curbs cadastrados' }
+                        subtitle        = { 'Curb cadastrado' }
                     />
                 </div>   
                 <div className	= {this._pageName + '-holder'}>     

@@ -98,11 +98,6 @@ export default class SupervisorTable extends React.Component {
               title     : 'Email',
               dataIndex : 'email',
             },
-            {
-              title     : 'Ações',
-              dataIndex : '',
-              render    : this.renderActions
-            },
           ];
 
         return (
