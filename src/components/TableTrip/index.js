@@ -121,6 +121,7 @@ export default class TableTrip extends React.Component {
                     size        = {'small'}
                     pagination  = { false }
                     scroll      = {{ x: (this.state.innerWidth <= 600 ? 1000 : 0) }}
+                   
                 />
             
             </div>

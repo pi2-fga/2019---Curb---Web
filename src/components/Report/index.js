@@ -1,5 +1,7 @@
 import React        from "react";
+import TableTrip from "../TableTrip";
 
+//Imprime a versão em PDF
 
 export default ({ tinta, bateria, data, hora, supervisor }) => 
   

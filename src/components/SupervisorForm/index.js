@@ -7,7 +7,7 @@ import {
     Button,
     message,
 }                       from "antd";
-import StringMask       from 'string-mask'
+import StringMask       from 'string-mask';
 import Axios from "axios";
 
 

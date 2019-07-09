@@ -14,6 +14,7 @@ import UserRegister from "./pages/UserRegister";
 import Login from "./pages/Login";
 import Curb from "./pages/Curb";
 import Home from "./pages/Home";
+import ReportPage from "./pages/Report";
 
 const { Content } = Layout;
 
@@ -29,6 +30,7 @@ function AppRouter() {
                         <Route path='/estatistica-geral' component={GeneralStatistics} />
                         <Route path='/curb' component ={Curb} />
                         <Route path='/home' component ={Home} />
+                        <Route path='/relatorio' component={ReportPage} />
                     </Switch>
                 </Router>
             </Content>
