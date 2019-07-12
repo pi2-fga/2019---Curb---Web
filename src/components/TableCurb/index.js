@@ -46,6 +46,10 @@ export default class TableCurb extends React.Component {
         this.setState( {innerWidth: window.innerWidth} )
     }
 
+    handleRowClick = (event) => {
+        this.props.history.push('/curb', {curbs: this.props.curbs})
+    }
+
     // -------------------------------------------------------------------------//
     // Other functions
     // -------------------------------------------------------------------------//
@@ -87,19 +91,13 @@ export default class TableCurb extends React.Component {
             },
             {
               title     : 'Status',
-              dataIndex : 'operating',
+              dataIndex : 'status',
               render    : this.renderBool
             },
             {
               title     : 'Tinta',
               dataIndex : 'paint',
-              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'L') }
-            },
-            {
-              title     : 'Distância Percorrida',
-              dataIndex : 'distance',
-              align     : 'center',
-              render    : (text, record, index) => { return this.renderMeasures(text, record, index, 'Km') }
+              render    : (text, record, index) => { return this.renderMeasures(text, record, index, '%') }
             },
             {
                 title     : 'Bateria',
@@ -107,11 +105,6 @@ export default class TableCurb extends React.Component {
                 align     : 'center',
                 render    : (text, record, index) => { return this.renderMeasures(text, record, index, '%') }
               },
-            {
-              title     : 'Ações',
-              dataIndex : 'id',
-              render    : this.renderActions
-            },
           ];
 
         return (
@@ -119,11 +112,17 @@ export default class TableCurb extends React.Component {
                  
                 <Table
                     className   = {this._componentName + '-table'}
-                    dataSource  = {this.state.curbs}
+                    dataSource  = {this.props.curbs}
                     columns     = {columns}
                     size        = {'small'}
+                    loading     = {this.props.loading}
                     pagination  = { false }
                     scroll      = {{ x: (this.state.innerWidth <= 600 ? 1000 : 0) }}
+                    onRow={(record, rowIndex) => {
+                        return {
+                          onClick: this.handleRowClick, // click row
+                        };
+                      }}
                 />
             
             </div>

@@ -1,19 +1,10 @@
 import React        from "react";
 import PropTypes    from 'prop-types';
 import './style.less'
-import { Col }      from "antd";
-import {
-    ic_directions_car,
-    ic_trending_down,
-    ic_trending_up,
-    ic_map,
-}                   from 'react-icons-kit/md'
-import { Icon }     from 'react-icons-kit'
-import curbImage    from '../../images/curb.jpg';
+import curbImage    from '../../images/curb-logo.png';
 
-
-export default class CurbCard extends React.Component {
-    _componentName = "curb-card";
+export default class ReportCurb extends React.Component {
+    _componentName = "report-curb";
 
     // -------------------------------------------------------------------------//
     // React lifecycle functions
@@ -47,8 +38,20 @@ export default class CurbCard extends React.Component {
     // -------------------------------------------------------------------------//
 
     render() {
-       const paint = this.props.curb.paint * 0.03
+        const bateriaFinal = this.props.curb[0].battery;
+        const tintaFinal = this.props.curb[0].paint;
+        const bateriaInicial = this.props.curb[0].travels[0].battery;
+        const tintaInicial = this.props.curb[0].travels[0].paint;
+
+        const consumoBateria = bateriaInicial - bateriaFinal;
+        const consumoTinta = tintaInicial - tintaFinal;
+
+        const numTravels = this.props.curb[0].travels.length - 1;
+
+
+
         return (
+           
             
             <div className   = {this._componentName} >
                
@@ -61,29 +64,46 @@ export default class CurbCard extends React.Component {
                 <div className   = {this._componentName + '-info'}>
                     <div className   = {this._componentName + '-row'} >
                         <div className   = {this._componentName + '-title'}>
-                            BATERIA
+                            DADOS GERAIS
                         </div>
-                        { this.props.curb.battery + '%'}
                     </div>
-                    <div className   = {this._componentName + '-row'}>
+                    <div className   = {this._componentName + '-row'} >
                         <div className   = {this._componentName + '-title'}>
-                            TINTA
+                            Supervisor:
                         </div>
-                        { paint + ' litros'}
+                        { this.props.curb[0].userActive}
+                    </div>
+                    <div className   = {this._componentName + '-row'} >
+                        <div className   = {this._componentName + '-title'}>
+                            Data:
+                        </div>
+                        {this.props.curb[0].travels[numTravels].monitorings[0].data}
+                    </div>
+                    <div className   = {this._componentName + '-row'} >
+                        <div className   = {this._componentName + '-title'}>
+                            Consumo de Bateria:
+                        </div>
+                        { consumoBateria + '%'}
+                    </div>
+                <div className   = {this._componentName + '-row'}>
+                        <div className   = {this._componentName + '-title'}>
+                            Consumo de Tinta:
+                        </div>
+                        { consumoTinta + ' %'}
                     </div>
                 </div>
+                </div>
                
-            </div>
         );
     }
 }
 
 // Component props and default prop values
-CurbCard.propTypes = {
+ReportCurb.propTypes = {
     text         : PropTypes.string
 
 };
 
-CurbCard.defaultProps = {
-    text         : "Curb card"
+ReportCurb.defaultProps = {
+    text         : "report page"
 };

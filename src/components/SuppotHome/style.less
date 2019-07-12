@@ -1,15 +1,15 @@
 
-@componentName: ~"curb-card";
+@componentName: ~"support-home";
 
 .@{componentName}{
     width           : 100%;
     min-width       : 200px;
     height          : 200px;
     display         : inline-flex;
-    background-color: white;
+    background-color: transparent;
     
     .@{componentName}-img-holder{
-        width           : 60%;
+        width           : 40%;
         display         : flex;
         flex-direction  : row;
         align-items     : center;
@@ -17,16 +17,18 @@
     
         .@{componentName}-img{
             width           : 60%;
-            max-width       : 120px;
+            max-width       : 300px;
+            height: 180px;
         }
     }
 
     .@{componentName}-info{
-        width           : 40%;
+        width           : 50%;
         display         : flex;
-        flex-direction  : column;
-        justify-content : space-evenly;
+        // flex-direction  : column;
+        justify-content : left;
         text-align      : left;
+        margin-right: 10%;
 
         .@{componentName}-row{
             width: 100%;

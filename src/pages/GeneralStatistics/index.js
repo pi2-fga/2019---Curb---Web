@@ -8,9 +8,7 @@ import SupervisorTable from "../../components/SupervisorTable";
 import { Icon } from "antd";
 import WrappedCurbForm from "../../components/CurbForm";
 import WrappedSupervisorForm from "../../components/SupervisorForm";
-
-
-
+import Axios from "axios";
 
 export default class GeneralStatistics extends React.Component {
     _pageName = "general-statistics";
@@ -26,7 +24,16 @@ export default class GeneralStatistics extends React.Component {
             showAddItem         : false,
             showAddCurb         : false,
             showAddSupervisor   : false,
+            curbs               : [],
+            users               : [],
+            loadingCurb         : true,
+            loadingUsers        : true,
         };
+    }
+
+    componentDidMount() {
+        this.getUsers()
+        this.getMonitorings()
     }
 
 
@@ -34,6 +41,67 @@ export default class GeneralStatistics extends React.Component {
     // Requests
     // -------------------------------------------------------------------------//
 
+    getUsers(){
+        Axios.get('http://gustavo2795.pythonanywhere.com/usuarios/')
+    		.then((response) => {
+                console.log(response.data)
+                this.setState({
+                    users           : response.data && response.data.length ? response.data : [],
+                    loadingUsers    : false,
+                })
+    		})
+    		.catch((error) => {
+    			console.log('Fail getting users')
+    		})
+    }
+
+    getMonitorings(){
+        Axios.get('http://gustavo2795.pythonanywhere.com/monitoramentos/')
+    		.then((response) => {
+                let date = ''
+                let travels = []
+                let temp = []
+                for(let i=0; i<response.data.length; i++){
+                    if(response.data[i].data !== date && i!==0){
+                        let travel = {}
+                        if(temp.length)
+                            travel = {
+                                paint       : temp[temp.length-1].tinta,
+                                battery     : temp[temp.length-1].bateria,
+                                monitorings : temp
+                            }
+                        travels.push(travel)
+                        date = response.data[i].data;
+                        temp = [response.data[i]]
+                    } else {
+                        temp.push(response.data[i])
+                        if(i === response.data.length - 1){
+                            let travel = {
+                                paint       : temp[temp.length-1].tinta,
+                                battery     : temp[temp.length-1].bateria,
+                                monitorings : temp
+                            }
+                            travels.push(travel)
+                            date = response.data[i].data;
+                            temp = []
+                        }
+                        if(i === 0)
+                            date = response.data[i].data
+                    }
+                }
+                this.setState({
+                    monitorings : response.data && response.data.length ? response.data : [],
+                    travels     : travels,
+                }, () =>{
+                    this.setCurb()
+                })
+    		})
+    		.catch((error) => {
+    			console.log('Fail getting monitorings')
+    		})
+    }
+
+    
 
     // -------------------------------------------------------------------------//
     // Event Handlers
@@ -68,6 +136,33 @@ export default class GeneralStatistics extends React.Component {
     // Other functions
     // -------------------------------------------------------------------------//
 
+    updateSupervisorList = () => {
+        this.getUsers()
+        this.setState({
+            showAddItem         : false,
+            showAddCurb         : false,
+            showAddSupervisor   : false,
+        })
+    }
+
+
+    setCurb(){
+        console.log(this.state)
+        let curb = {
+            cod     : 1,
+            userActive: this.state.users[0].nome,
+            paint   : Array.isArray(this.state.monitorings) && this.state.monitorings.length ? this.state.monitorings[this.state.monitorings.length-1].tinta : 0,
+            battery : Array.isArray(this.state.monitorings) && this.state.monitorings.length ? this.state.monitorings[this.state.monitorings.length-1].bateria : 0,
+            travels : this.state.travels,
+            status  : Array.isArray(this.state.monitorings) && this.state.monitorings.length && this.state.monitorings[this.state.monitorings.length-1].status === 'true' ? 'Ligado' : 'Desligado'
+        }
+
+        this.setState({
+            curbs: [curb]
+        }, () => {
+            this.setState({loadingCurb: false})
+        })
+    }
 
     // -------------------------------------------------------------------------//
     // Rendering
@@ -92,7 +187,9 @@ export default class GeneralStatistics extends React.Component {
                     className	= {this._pageName + '-add-item-wrapper'}
                     onClick     = {this.handleShowAddSupervisor}
                 />
-                <WrappedSupervisorForm />
+                <WrappedSupervisorForm
+                    updateSupervisorList = { this.updateSupervisorList }
+                />
             </div>
         )
     }
@@ -123,6 +220,7 @@ export default class GeneralStatistics extends React.Component {
     }
 
     render() {
+        console.log(this.state.curbs[0])
         return (
             <div className	= {this._pageName}>
                 <div className	= {this._pageName + '-highlight-holder'}>
@@ -143,19 +241,30 @@ export default class GeneralStatistics extends React.Component {
                     <HighlightCard 
                         unitOfMeasure   = { '' }
                         amount          = { 87 }
-                        subtitle        = { 'Viagens realizadas' }
+                        subtitle        = { '' }
                     />
                     <HighlightCard 
                         unitOfMeasure   = { '' }
-                        amount          = { 12 }
+                        amount          = { 1 }
                         subtitle        = { 'Curbs cadastrados' }
                     />
                 </div>   
                 <div className	= {this._pageName + '-holder'}>     
-                    <TableCurb />
+                    <TableCurb
+                        curbs   = { this.state.curbs }
+                        history = { this.props.history }
+                        loading = { this.state.loadingCurb }
+                    />
                     <div className = {this._pageName + '-rows'}>
-                        <ChartCurb />
-                        <SupervisorTable />
+                        <ChartCurb 
+                              curbs ={this.state.curbs}
+                            //  tinta = {this.state.curbs[0].travels[0].paint}
+                            //  bateria = {this.state.curbs[0].travels[0].battery}
+                        />
+                        <SupervisorTable
+                            users   = { this.state.users }
+                            loading = { this.state.loadingUsers }
+                        />
                     </div>
                 </div>
                 { this.state.showAddItem ?
