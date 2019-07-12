@@ -28,12 +28,12 @@ npm start
 acesse em:
 
 ```
-https://curb-web.herokuapp.com/
-https://curb-web.herokuapp.com/login
-https://curb-web.herokuapp.com/cadastrar
-https://curb-web.herokuapp.com/estatistica-geral
-https://curb-web.herokuapp.com/curb
+http://curb-web.herokuapp.com/
 ```
+
+Para carregar os dados no deploy, é necessário baixar uma extensão CORS no seu navegador.
+
+Sugestão de extensão: [CORS para chrome](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?utm_source=chrome-ntp-icon)
 
                         
                      
